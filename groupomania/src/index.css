@@ -1,0 +1,123 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+nav {
+  background-color: #FD2D01;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 200px;
+  padding-left: 50px;
+}
+
+#logo {
+  height: 300px;
+}
+
+#profil {
+  display: flex;
+  flex-direction: column;
+  font-size: larger;
+  margin-right: 10px;
+}
+#profil img {
+  align-self: center;
+  height: 100px;
+  width: 100px;
+}
+
+#compteMenu {
+  background-color: #FFD7D7;
+  padding: 50px;
+}
+
+#postList {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #FFD7D7;
+  box-shadow: -5px 5px 10px #FD2D01;
+  border-radius: 50px;
+  margin: 10px;
+  overflow-y: scroll;
+  height: 500px;
+  width: 400px;
+}
+#postList li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 50px;
+  background-color: #4E5166;
+  overflow-wrap: break-word;
+  box-shadow: -5px 5px 10px black;
+  width: 300px;
+  padding: 10px;
+  margin: 20px;
+}
+#postList li img {
+  border-radius: 50px 50px 0 0;
+  height: 100px;
+  width: 300px;
+}
+#postList li .content {
+  background-color: #FD2D01;
+  width: 300px;
+  height: 100px;
+  border-radius: 0px 0px 50px 50px;
+}
+#postList li span {
+  font-weight: bold;
+  color: white;
+  justify-content: center;
+  bottom: 5px;
+}
+
+.cardPost {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 50px;
+  background-color: #4E5166;
+  overflow-wrap: break-word;
+  padding: 10px;
+  margin: 20px;
+  width: 400px;
+}
+.cardPost img {
+  border-radius: 50px 50px 0 0;
+  width: 100%;
+  height: 200px;
+}
+.cardPost form {
+  width: 100%;
+  height: 200px;
+  align-items: center;
+}
+
+#newPost {
+  background-color: #FD2D01;
+}
+
+#accueil {
+  display: flex;
+  justify-content: space-around;
+  background-color: #FFD7D7;
+}
+
+footer {
+  background-color: #4E5166;
+  color: white;
+  padding: 50px;
+}
+
+/*# sourceMappingURL=index.css.map */

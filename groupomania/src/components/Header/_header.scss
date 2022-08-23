@@ -1,0 +1,25 @@
+nav {
+  background-color: $primaire;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 200px;
+  padding-left: 50px;
+}
+
+#logo {
+  height: 300px;
+}
+
+#profil {
+  display: flex;
+  flex-direction: column;
+  font-size: larger;
+  margin-right: 10px;
+  img{
+    align-self: center;
+    height: 100px;
+    width: 100px;
+  }
+}
