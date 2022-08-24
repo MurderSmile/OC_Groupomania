@@ -5,10 +5,10 @@ export const authContext = createContext()
 
 export const AuthProvider = ({ children }) => {
     const [auth, setAuth] = useState('')
-    const toggleAuth = () => {}
+
  
     return (
-        <authContext.Provider value={{ auth, toggleAuth }}>
+        <authContext.Provider value={{ auth, setAuth }}>
             {children}
         </authContext.Provider>
     )
