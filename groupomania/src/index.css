@@ -40,6 +40,10 @@ nav {
   padding: 50px;
 }
 
+.activeBtn {
+  background-color: #FD2D01;
+}
+
 #postList {
   display: flex;
   flex-direction: column;

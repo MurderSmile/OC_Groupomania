@@ -3,8 +3,8 @@ const fs = require('fs')
 
 // Ajout d'une nouvelle post //
 exports.createPost = (req, res, next) => {
-
   const postObject = JSON.parse(req.body.post)
+  
   delete postObject._id;
   delete postObject._userId;
 

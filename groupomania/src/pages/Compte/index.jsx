@@ -22,10 +22,10 @@ function Compte() {
   return (
     <div id='compteMenu'>
       <div>
-        <button id="connect" className= {connectModel && "activeBtn"} onClick={loginOrCreate}>
+        <button id="connect" className= {connectModel? "activeBtn" : null} onClick={loginOrCreate}>
           Se connecter
         </button>
-        <button id="create"  className= {createModel && "activeBtn"} onClick={loginOrCreate}>
+        <button id="create"  className= {createModel? "activeBtn" : null} onClick={loginOrCreate}>
           Créer un Compte
         </button>
       </div>

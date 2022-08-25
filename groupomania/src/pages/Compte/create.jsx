@@ -6,26 +6,28 @@ function Create() {
 
   const login = (e) => {
     e.preventDefault();
-    
-    return fetch("http://localhost:5500/api/auth/signup", {
-	    method: "POST",
-	    headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-	    body: JSON.stringify({email, password})
+
+    return fetch('http://localhost:5500/api/auth/signup', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
     })
+      .then((res) => res.json())
 
-    .then(res => res.json())
+      .then((resJson) => {
+        if (resJson.message === 'Utilisateur créé !') {
+          sessionStorage.setItem('name', email)
+          sessionStorage.setItem('token', resJson.token);   
+          window.location.href = './accueil';
+        }
+      })
 
-    .then((resJson) => {
-      if (resJson.message === 'Utilisateur créé !') {
-        sessionStorage.setItem('token', resJson.token);
-        window.location.href = './accueil';
-      }
-    })
-
-    .catch(error => {
-      console.log(error)
-    })
-
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
