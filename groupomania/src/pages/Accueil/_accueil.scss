@@ -1,3 +1,70 @@
+#accueil {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-items: center;
+  min-height: 700px;
+  justify-content: space-around;
+  background-color: $secondaire;
+}
+
+
+#createPost {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 40px;
+  background-color: $tertiaire;
+  overflow-wrap: break-word;
+  border-radius: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  max-height: 600px;
+  width: 500px;
+
+  @media screen and (max-width: 600px){
+    width: 90%;
+  }
+
+  label {
+    font-weight: bold;
+      color: white;
+      margin: 5px;
+  }
+
+  &AddPicture {
+    background-color: $primaire;
+    border-radius: 50px;
+    @media screen and (max-width: 600px){
+      width: 90%;
+    }
+  }
+
+  &Contenu {
+    background-color: $primaire;
+    height: 90%;
+    width: 90%;
+    @media screen and (max-width: 600px){
+      width: 90%;
+    }
+  }
+  
+  &Submit {
+    border: none;
+    justify-content: center;
+    font-weight: bold;
+    background-color: $secondaire;
+    color: black;
+    border-radius: 50px;
+    margin: 5px;
+    &:hover{
+      background-color: black;
+      color: white;
+    }
+  }
+}
+
+
 #postList {
   display: flex;
   flex-direction: column;
@@ -5,36 +72,60 @@
   justify-content: space-between;
   overflow-y: scroll;
   background-color: $secondaire;
-  box-shadow: -5px 5px 10px $primaire;
+  box-shadow: 5px -5px 10px $primaire;
   border-radius: 50px;
-  margin: 10px;
-  padding: 10px;
   height: 600px;
-  width: 500px;
+  width: 550px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  @media screen and (max-width: 600px){
+    width: 90%;
+  }
 
-  li {
+  .post {
     display: flex;
     flex-direction: column;
     align-items: center;
     overflow-wrap: break-word;
     background-color: $tertiaire;
-    box-shadow: -5px 5px 10px black;
+    box-shadow: 5px -5px 10px $primaire;
     border-radius: 50px;
     margin: 10px;
-    padding: 5px;
-    width: 400px;
+    width: 500px;
+    @media screen and (max-width: 600px){
+      width: 90%;
+    }
 
-    img {
+    &Picture {
+      object-fit: cover;
       border-radius: 50px 50px 0 0;
-      height: 100px;
+      max-height: 200px;
+      width: 90%;
+    }
+
+    &Content {
+      background-color: $primaire;
+      width: 90%;
+    }
+
+    &Interaction {
+      display: flex;
+      justify-content: space-around;
       width: 100%;
     }
 
-    .content {
-      background-color: $primaire;
-      border-radius: 0px 0px 50px 50px;
-      height: 100px;
-      width: 100%;
+    button {
+      border: none;
+      justify-content: center;
+      font-weight: bold;
+      background-color: $secondaire;
+      color: black;
+      border-radius: 50px;
+      margin: 5px;
+      &:hover{
+        background-color: black;
+        color: white;
+      }
     }
 
     span {
@@ -42,57 +133,41 @@
       color: white;
       justify-content: center;
       margin: 5px;
+      @media screen and (max-width: 600px){
+        background-color: $primaire;
+        border-radius: 50px;
+      }
     }
   }
 }
 
-#cardPost {
+
+/*
+#focusPost{
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 50px;
+  border-radius: 40px;
   background-color: $tertiaire;
   overflow-wrap: break-word;
-  max-width: 100%;
-  padding: 10px;
-  margin: 20px;
-  height: 500px;
-  min-width: 400px;
-  max-width: 600px;
-}
 
-#newPostContenu {
-  background-color: $primaire;
-}
-
-#zoomPost{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 50px;
-  background-color: $tertiaire;
-  overflow-wrap: break-word;
-  max-width: 100%;
-  padding: 10px;
-  margin: 20px;
-  height: 500px;
-  min-width: 400px;
-  max-width: 600px;
-  img {
-    border-radius: 50px 50px 0 0;
-    height: 200px;
-    width: 100%;
+  width: 600px;
+  
+  @media screen and (max-width: 600px){
+    
   }
-  .content {
+  &Picture {
+    object-fit: cover;
+    width: 100%
+  }
+  &Content {
     background-color: $primaire;
-    border-radius: 0px 0px 50px 50px;
-    height: 100%;
-    width: 100%;
+    
   }
-  #sousSection {
+  &Interaction {
     display: flex;
     justify-content: space-around;
-    width: 100%;
+    
   }
   span {
     font-weight: bold;
@@ -100,11 +175,4 @@
     justify-content: center;
     margin: 5px;
   }
-}
-
-#accueil {
-  display: flex;
-  min-height: 700px;
-  justify-content: space-around;
-  background-color: $secondaire;
-}
+}*/

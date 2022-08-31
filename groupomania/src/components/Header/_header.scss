@@ -1,22 +1,26 @@
 nav {
   background-color: $primaire;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: space-around;
   align-items: center;
-  height: 200px;
-  padding-left: 50px;
+  @media screen and (max-width: 600px){
+    justify-content: center;
+  }
 }
 
 #logo {
   height: 300px;
+  margin-left: 10px;
 }
 
 #profil {
   display: flex;
   flex-direction: column;
   font-size: larger;
-  margin-right: 10px;
+  @media screen and (max-width: 600px){
+    padding-bottom: 50px;
+  }
   img{
     align-self: center;
     height: 100px;

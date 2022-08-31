@@ -1,0 +1,243 @@
+body {
+  margin: 0;
+  font-family: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: "Lato", source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+* {
+  font-family: "Lato";
+  font-size: 20px;
+}
+
+nav {
+  background-color: #FD2D01;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+@media screen and (max-width: 600px) {
+  nav {
+    justify-content: center;
+  }
+}
+
+#logo {
+  height: 300px;
+  margin-left: 10px;
+}
+
+#profil {
+  display: flex;
+  flex-direction: column;
+  font-size: larger;
+}
+@media screen and (max-width: 600px) {
+  #profil {
+    padding-bottom: 50px;
+  }
+}
+#profil img {
+  align-self: center;
+  height: 100px;
+  width: 100px;
+}
+
+footer {
+  background-color: #4E5166;
+  color: white;
+  padding: 50px;
+}
+
+#compteMenu {
+  background-color: #FFD7D7;
+  padding: 50px;
+}
+
+.activeBtn {
+  background-color: #FD2D01;
+}
+
+#accueil {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  align-items: center;
+  min-height: 700px;
+  justify-content: space-around;
+  background-color: #FFD7D7;
+}
+
+#createPost {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 40px;
+  background-color: #4E5166;
+  overflow-wrap: break-word;
+  border-radius: 50px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  max-height: 600px;
+  width: 500px;
+}
+@media screen and (max-width: 600px) {
+  #createPost {
+    width: 90%;
+  }
+}
+#createPost label {
+  font-weight: bold;
+  color: white;
+  margin: 5px;
+}
+#createPostAddPicture {
+  background-color: #FD2D01;
+  border-radius: 50px;
+}
+@media screen and (max-width: 600px) {
+  #createPostAddPicture {
+    width: 90%;
+  }
+}
+#createPostContenu {
+  background-color: #FD2D01;
+  height: 90%;
+  width: 90%;
+}
+@media screen and (max-width: 600px) {
+  #createPostContenu {
+    width: 90%;
+  }
+}
+#createPostSubmit {
+  border: none;
+  justify-content: center;
+  font-weight: bold;
+  background-color: #FFD7D7;
+  color: black;
+  border-radius: 50px;
+  margin: 5px;
+}
+#createPostSubmit:hover {
+  background-color: black;
+  color: white;
+}
+
+#postList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow-y: scroll;
+  background-color: #FFD7D7;
+  box-shadow: 5px -5px 10px #FD2D01;
+  border-radius: 50px;
+  height: 600px;
+  width: 550px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+@media screen and (max-width: 600px) {
+  #postList {
+    width: 90%;
+  }
+}
+#postList .post {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-wrap: break-word;
+  background-color: #4E5166;
+  box-shadow: 5px -5px 10px #FD2D01;
+  border-radius: 50px;
+  margin: 10px;
+  width: 500px;
+}
+@media screen and (max-width: 600px) {
+  #postList .post {
+    width: 90%;
+  }
+}
+#postList .postPicture {
+  object-fit: cover;
+  border-radius: 50px 50px 0 0;
+  max-height: 200px;
+  width: 90%;
+}
+#postList .postContent {
+  background-color: #FD2D01;
+  width: 90%;
+}
+#postList .postInteraction {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+#postList .post button {
+  border: none;
+  justify-content: center;
+  font-weight: bold;
+  background-color: #FFD7D7;
+  color: black;
+  border-radius: 50px;
+  margin: 5px;
+}
+#postList .post button:hover {
+  background-color: black;
+  color: white;
+}
+#postList .post span {
+  font-weight: bold;
+  color: white;
+  justify-content: center;
+  margin: 5px;
+}
+@media screen and (max-width: 600px) {
+  #postList .post span {
+    background-color: #FD2D01;
+    border-radius: 50px;
+  }
+}
+
+/*
+#focusPost{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 40px;
+  background-color: $tertiaire;
+  overflow-wrap: break-word;
+
+  width: 600px;
+
+  @media screen and (max-width: 600px){
+
+  }
+  &Picture {
+    object-fit: cover;
+    width: 100%
+  }
+  &Content {
+    background-color: $primaire;
+
+  }
+  &Interaction {
+    display: flex;
+    justify-content: space-around;
+
+  }
+  span {
+    font-weight: bold;
+    color: white;
+    justify-content: center;
+    margin: 5px;
+  }
+}*/
+
+/*# sourceMappingURL=index.css.map */

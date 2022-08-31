@@ -1,23 +1,67 @@
 const Post = require('../models/post')
-const fs = require('fs')
+const fs = require('fs');
+const { json } = require('express');
+
+/*/ Ajout d'une nouvelle post //
+exports.createPost = (req, res, next) => {
+  //res.status(201).json({ message: 'Chemin, atteint !'}
+  try {
+    const postObject = req.body
+  
+    delete postObject._id;
+    delete postObject._userId;
+
+    const post = new Post({
+      ...postObject,
+      userId: req.auth.userId,
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    })
+  
+    post.save()
+      .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+      .catch(error => res.status(400).json({ message: post}))
+  
+  }
+  catch(error){ 
+    res.status(501).json({ message: "format incorrect" })
+  }
+  
+};*/
 
 // Ajout d'une nouvelle post //
 exports.createPost = (req, res, next) => {
-  const postObject = JSON.parse(req.body.post)
+  //res.status(201).json({ message: 'Chemin, atteint !'}
+  try {
+    const postObject = 
+
+    // Ajout AVEC Image //
+    req.file ? {
+      ...JSON.parse(req.body.post),
+      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    } 
+
+    // Ajout SANS Image //
+    : { 
+      ...req.body 
+    }
   
-  delete postObject._id;
-  delete postObject._userId;
+    delete postObject._id;
+    delete postObject._userId;
 
-  const post = new Post({
-    ...postObject,
-    userId: req.auth.userId,
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-  })
-
-  post.save()
-    .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
-    .catch(error => res.status(400).json({ error }))
-
+    const post = new Post({
+      ...postObject,
+      userId: req.auth.userId,
+    })
+  
+    post.save()
+      .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+      .catch(error => res.status(400).json({error}))
+  
+  }
+  catch(error){ 
+    res.status(501).json({ message: "format incorrect" })
+  }
+  
 };
 
 // Changer un post //
@@ -46,7 +90,7 @@ exports.modifyPost = (req, res, next) => {
 
       else {
         Post.updateOne({ _id: req.params.id}, { ...postObject, _id: req.params.id})
-          .then(() => res.status(200).json({message : 'Objet modifié!'}))
+          .then(() => res.status(200).json({message : 'Post modifié!'}))
           .catch(error => res.status(401).json({ error }))
       }
 
@@ -71,7 +115,7 @@ exports.supprimPost = (req, res, next) => {
         fs.unlink(`images/${filename}`, () => {
           
           Post.deleteOne({_id: req.params.id})
-            .then(() => { res.status(200).json({message: 'Objet supprimé !'})})
+            .then(() => { res.status(200).json({message: 'Post supprimé !'})})
             .catch(error => res.status(401).json({ error }))
 
         })
@@ -107,7 +151,7 @@ exports.like = (req, res, next) => {
   Post.findOne({ _id: req.params.id })
     .then(post => {
 
-      // Si l'utilisateur n'a pas encore aimé ou non un post //
+      // Si l'utilisateur n'a pas encore aimé un post //
       if(post.usersLiked.indexOf(req.body.userId) == -1) {
         
         // L'utilisateur aime le post //

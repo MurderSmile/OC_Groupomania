@@ -10,7 +10,7 @@ function Connect() {
     return fetch('http://localhost:5500/api/auth/login', {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, password }),
@@ -21,7 +21,8 @@ function Connect() {
         if (resJson.message !== 'Paire login/mot de passe incorrecte') {
           sessionStorage.setItem('name', email)
           sessionStorage.setItem('token', resJson.token);   
-          //window.location.href = './accueil';
+          console.log(resJson.admin);
+          window.location.href = './accueil';
         }
       })
 

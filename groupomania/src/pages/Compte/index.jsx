@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Connect from './connect';
 import Create from './create';
-import '../../index.css'
+import '../../utils/styles/css/index.css';
 
 function Compte() {
   const [connectModel, setConnectModel] = useState(true);

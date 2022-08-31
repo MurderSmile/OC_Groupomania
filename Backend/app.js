@@ -23,6 +23,8 @@ mongoose.connect('mongodb+srv://MurderSmile:DeathLaugh@cluster13.wdfny.mongodb.n
 
 app.use(express.json());
 
+//app.use(cors());
+
 // Autorisation CORS //
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');

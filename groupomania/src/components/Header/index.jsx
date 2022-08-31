@@ -1,8 +1,8 @@
 import OriginalLogo from '../../assets/icon-left-font-monochrome-black.png';
 import DefaultPicture from '../../assets/profile.png';
 
-let local = sessionStorage.getItem("name")
-const name = !local || local === '' ? 'Pas connecté' : local
+let localName = sessionStorage.getItem("name")
+const name = !localName || localName === '' ? 'Déconnecté' : localName
 
 function deconnect(){
   sessionStorage.clear();
@@ -16,7 +16,7 @@ function Header() {
       <div id="profil">
         <img src={DefaultPicture} alt="" />
         <span>{name}</span>
-        {local && local !=='' && <button onClick={deconnect}>se déconnecter</button>}
+        {localName && localName !=='' && <button onClick={deconnect}>se déconnecter</button>}
       </div>
     </nav>
   );
