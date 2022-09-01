@@ -2,9 +2,9 @@
 import '../../utils/styles/css/index.css';
 import DefaultPicture from '../../assets/656510.jpg';
 import { useState, useEffect } from 'react';
-import { render } from '@testing-library/react';
+import axios from 'axios';
 
-
+import NewPost from './newPost'
 /////////////////////////// Paramètres ///////////////////////////////
 
 const token = sessionStorage.getItem('token');
@@ -23,103 +23,65 @@ function Accueil() {
   );
 }
 
-////////// Création et envoi d'un post //////////
-  function NewPost() {
-    const [text, setText] = useState('');
-    const [fileImage, setFileImage] = useState('');
-    
-    const file = fileImage.split("fakepath\\")[1]
-    const imageUrl = file
 
-    const CreatePost = (e) => {
-      e.preventDefault();
-
-      return fetch('http://localhost:5500/api/posts/', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({author, text, imageUrl}),
-      })
-        .then((res) => res.json())
-
-        .then((resJson) => {
-          console.log(resJson);
-          console.log(fileImage);
-          console.log(file);
-          console.log({author, text, imageUrl});
-        })
-
-        .catch((error) => {
-          console.log(error);
-          console.log(fileImage)
-          console.log({author, text, imageUrl});
-        });
-    };
-
-    return (
-      <form id="createPost" onSubmit={CreatePost}>
-        <label htmlFor="createPostAddPicture">Image</label>
-        <br />
-        <input
-          type="file"
-          name="createPostAddPicture"
-          id="createPostAddPicture"
-          onChange={(e) => setFileImage(e.target.value)}
-          value={fileImage}
-        />
-
-        <br />
-
-        <label htmlFor="createPostContenu">Contenu</label>
-        <br />
-        <textarea
-          name="createPostContenu"
-          id="createPostContenu"
-          rows=""
-          cols=""
-          placeholder="écrivez votre message"
-          onChange={(e) => setText(e.target.value)}
-          value={text}
-        ></textarea>
-
-        <br />
-
-        <input id="createPostSubmit" type="submit" value="Envoyer un post" />
-      </form>
-    );
-  }
-////////// Création et envoi d'un post //////////
 
 
 ///////////// Génération des posts //////////////
+
+/*function getApi(){
+
+  return fetch('http://localhost:5500/api/posts/', {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((res) => res.json())
+
+  .then((resJson) => {
+    return resJson
+  })
+
+  .catch((error) => {
+    console.log(error);
+  });
+
+}*/
+
 
 function WorkTchat() {
   const [posts, setPosts] = useState([])
 
   useEffect(()=>{
+    const fetchData = async() => {
+      const result = await axios(
+        fetch('http://localhost:5500/api/posts/', {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        })
+        .then((res) => res.json())
 
-    return fetch('http://localhost:5500/api/posts/', {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-    .then((res) => res.json())
+        .then((resJson) => {
+          console.log(resJson)
+          return resJson
+        })
 
-    .then((resJson) => {
-      setPosts(resJson)
-      console.log(resJson)
-    })
+        .catch((error) => {
+          console.log(error)
+        })
+      )
+      setPosts(result.data);
+    }
 
-    .catch((error) => {
-      console.log(error);
-    });
-
-  },[])
+    fetchData()
+    
+  },[]);
 
   return (
     <div id="postList">
@@ -169,6 +131,7 @@ function WorkTchat() {
       return fetch(`http://localhost:5500/api/posts/findOnePost/${id}`, {
         method: 'GET',
         headers: {
+          Authorization: `Bearer ${token}`,
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },

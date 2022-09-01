@@ -22,7 +22,7 @@ router.delete('/:id', auth, postControl.supprimPost);
 router.get('/:id', auth, postControl.findOnePost);
   
 // Afficher tout les posts //
-router.get('/', /*auth,*/ postControl.findAllPosts);
+router.get('/', auth, postControl.findAllPosts);
 
 // Donner un like pour un post //
 router.post('/:id/like', auth, postControl.like);

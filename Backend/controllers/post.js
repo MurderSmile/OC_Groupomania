@@ -30,7 +30,6 @@ exports.createPost = (req, res, next) => {
 
 // Ajout d'une nouvelle post //
 exports.createPost = (req, res, next) => {
-  //res.status(201).json({ message: 'Chemin, atteint !'}
   try {
     const postObject = 
 

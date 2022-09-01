@@ -4,8 +4,6 @@ import '../src/utils/styles/css/index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import { AuthProvider } from '../src/utils/context/index';
-
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Error from './components/Error';
@@ -36,13 +34,13 @@ function Identification() {
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
-      <AuthProvider>
+      
         <Header />
 
         <Identification />
 
         <Footer />
-      </AuthProvider>
+      
     </BrowserRouter>
   </React.StrictMode>
 );

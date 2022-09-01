@@ -21,7 +21,7 @@ function Connect() {
         if (resJson.message !== 'Paire login/mot de passe incorrecte') {
           sessionStorage.setItem('name', email)
           sessionStorage.setItem('token', resJson.token);   
-          console.log(resJson.admin);
+          sessionStorage.setItem('auth', resJson.admin);  
           window.location.href = './accueil';
         }
       })
@@ -32,7 +32,7 @@ function Connect() {
   };
 
   return (
-    <form id="connectForm" onSubmit={login} >
+    <form id="connectForm" onSubmit={(e) => {login(e)}}>
       Connection
       <div>
         <label htmlFor="email">Email</label>

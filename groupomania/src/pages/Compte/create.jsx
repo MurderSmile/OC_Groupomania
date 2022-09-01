@@ -10,7 +10,7 @@ function Create() {
     return fetch('http://localhost:5500/api/auth/signup', {
       method: 'POST',
       headers: {
-        Accept: 'application/json',
+        'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, password }),
@@ -20,7 +20,8 @@ function Create() {
       .then((resJson) => {
         if (resJson.message === 'Utilisateur créé !') {
           sessionStorage.setItem('name', email)
-          sessionStorage.setItem('token', resJson.token);   
+          sessionStorage.setItem('token', resJson.token);  
+          sessionStorage.setItem('auth', resJson.admin);   
           window.location.href = './accueil';
         }
       })
