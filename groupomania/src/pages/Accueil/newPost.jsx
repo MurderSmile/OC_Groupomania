@@ -4,19 +4,15 @@ import { useState } from "react";
 const token = sessionStorage.getItem('token');
 const author = sessionStorage.getItem('name');
 
-
-
 function NewPost() {
-    
     const [text, setText] = useState('');
     const [fileImage, setFileImage] = useState('');
-    const handlePicture = (e) => {
-      setFileImage(URL.createObjectURL(e.target.files[0]));
-    };
-    
     
 
-    const CreatePost = () => {
+    const CreatePost = (e) => {
+      e.preventDefault();
+
+      const imageUrl = fileImage
 
       return fetch('http://localhost:5500/api/posts/', {
         method: 'POST',
@@ -25,32 +21,31 @@ function NewPost() {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({author, text, fileImage}),
+        body: JSON.stringify({author, text}),
       })
         .then((res) => res.json())
 
         .then((resJson) => {
-          console.log(resJson);
-          console.log(fileImage);
-          console.log({author, text, fileImage});
+          console.log(resJson);    
+          console.log({author, text, imageUrl});
         })
 
         .catch((error) => {
           console.log(error);
-          console.log(fileImage)
-          console.log({author, text, fileImage});
+          console.log({author, text, imageUrl});
         });
     };
 
     return (
-      <form id="createPost" onSubmit={CreatePost} method="post" encType='multipart/form-data'>
-        <label htmlFor="createPostAddPicture">Image</label>
+      <form id="createPost" onSubmit={() => CreatePost}>
+        <label htmlFor="createPostPicture">Image</label>
         <br />
         <input
           type="file"
-          name="createPostAddPicture"
-          id="createPostAddPicture"
-          onChange={(e) => handlePicture(e)}
+          name="createPostPicture"
+          id="createPostPicture"
+          onChange={(e) => setFileImage(e.target.value)}
+          value={fileImage}
         />
 
         <br />

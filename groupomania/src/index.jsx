@@ -11,6 +11,8 @@ import Error from './components/Error';
 import Compte from './pages/Compte/index';
 import Accueil from './pages/Accueil';
 
+import { IdProvider } from './utils/context';
+
 function Identification() {
   const token = sessionStorage.getItem('token');
 
@@ -34,13 +36,15 @@ function Identification() {
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
+      <IdProvider>
       
         <Header />
 
         <Identification />
 
         <Footer />
-      
+        
+      </IdProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

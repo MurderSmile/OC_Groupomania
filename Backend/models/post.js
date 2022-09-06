@@ -2,9 +2,12 @@
 
 const mongoose = require('mongoose');
 
+let now = new Date()
+
 const postSchema = mongoose.Schema({
   userId: { type: String, required: true },
-  date: { type:String, required: true, default:Date.now()},
+  date: { type:String, required: true, default:now.toLocaleDateString()},
+  time: { type:String, required: true, default:now.toLocaleTimeString()},
   author: {type: String, required: true},
   text: { type: String, required: true },
   imageUrl: { type: String, required: false },

@@ -109,7 +109,7 @@ exports.supprimPost = (req, res, next) => {
         res.status(401).json({message: 'Not authorized'})
       } 
 
-      else {
+      else if (post.imageUrl) {
         const filename = post.imageUrl.split('/images/')[1]
         fs.unlink(`images/${filename}`, () => {
           
@@ -118,6 +118,14 @@ exports.supprimPost = (req, res, next) => {
             .catch(error => res.status(401).json({ error }))
 
         })
+      }
+
+      else {
+          
+        Post.deleteOne({_id: req.params.id})
+          .then(() => { res.status(200).json({message: 'Post supprimé !'})})
+          .catch(error => res.status(401).json({ error }))
+    
       }
 
     })

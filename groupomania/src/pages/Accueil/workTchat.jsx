@@ -1,8 +1,9 @@
 /* eslint-disable array-callback-return */
 import '../../utils/styles/css/index.css';
 //import DefaultPicture from '../../assets/656510.jpg';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 
+import { IdContext } from '../../utils/context';
 import findAll from '../../utils/api.jsx'
 
 /////////////////////////// Paramètres ///////////////////////////////
@@ -12,8 +13,9 @@ const author = sessionStorage.getItem('name')
 
 ///////////// Génération des posts //////////////
 
-function WorkTchat(){
+function WorkTchat(){ 
   const [posts, setPosts] = useState([])  
+  const {setIdPost} = useContext(IdContext)
 
   useEffect(()=>{
 
@@ -29,9 +31,7 @@ function WorkTchat(){
 
     .then((resJson) => setPosts(resJson))
 
-    .catch((error) => {
-      console.log(error)
-    })
+    .catch((error) => console.log(error))
     
     /*GetApi()
     async function GetApi(){
@@ -50,10 +50,10 @@ function WorkTchat(){
         <span>{post.author}</span>
         <img className="postPicture" src={post.imageUrl} alt="" />
         <div className="postContent">{post.text}</div>
-        <span>Créer le :{post.date}</span>
+        <span>Créer le : {post.date} à {post.time}</span>
 
         <div className="postInteraction">
-          {author === post.author && (<button onClick={() => {FindOnePost(post._id)}}> Modifier </button>)}
+          {author === post.author && (<button onClick={() => {setIdPost(post._id)}}> Modifier </button>)}
           <button onClick={() => {Like(post._id)}}> {post.likes} Likes </button>
           {author === post.author && (<button onClick={() => {SupprimPost(post._id)}}> Supprimer </button>)}
         </div>
@@ -64,91 +64,6 @@ function WorkTchat(){
   )
 }
 
-///////////// Génération des posts //////////////
-
-////////////// Génération d'un post(modif, like, supprim) //////////////
-  
-
-  //////////// Modification d'un post ///////////// 
-    function FindOnePost(id) {
-      return fetch(`http://localhost:5500/api/posts/${id}`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      })
-        .then((res) => res.json())
-
-        .then((resJson) => {
-          ModifPost(resJson);
-        })
-
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-
-
-    function ModifPost(postSelected) {
-      const [post, setPost] = useState('');
-      const [image, setImage] = useState('');
-
-      function ModifyPost(id) {
-        return fetch(`http://localhost:5500/api/posts/${id}`, {
-          method: 'PUT',
-          headers: {
-            Authorization: `Bearer ${token}`,
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ post, image }),
-        })
-          .then((res) => res.json())
-
-          .then((resJson) => {
-            console.log(resJson.message);
-          })
-
-          .catch((error) => {
-            console.log(error);
-          });
-      }
-
-      return (
-        <form id="modifPost" onSubmit={ModifyPost(postSelected._id)}>
-          <label htmlFor="modifPostPicture">Image</label>
-          <br />
-          <input
-            type="file"
-            name="modifPostPicture"
-            id="modifPostPicture"
-            onChange={(e) => setImage(e.target.value)}
-            value={image}
-          />
-
-          <br />
-
-          <label htmlFor="modifPostContenu">Contenu</label>
-          <br />
-          <textarea
-            name="modifPostContenu"
-            id="modifPostContenu"
-            rows="15"
-            cols="60"
-            placeholder="écrivez votre message"
-            onChange={(e) => setPost(e.target.value)}
-            value={post}
-          ></textarea>
-
-          <br />
-
-          <input id="modifPostSubmit" type="submit" value="Modifier un post" />
-        </form>
-      );
-    }
-  //////////// Modification d'un post ///////////// 
 
 
   //////////////// Créer un like //////////////////

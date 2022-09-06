@@ -1,16 +1,18 @@
-/* eslint-disable array-callback-return */
+import { useContext } from 'react';
+import { IdContext } from '../../utils/context';
 import '../../utils/styles/css/index.css';
 
 import NewPost from './newPost'
+import ModifyPost from './modifyPost';
 import WorkTchat from './workTchat';
 
 
 function Accueil() {
+  const {idPost} = useContext(IdContext)
 
   return (
     <section id="accueil">
-      {/*{!ModifOnePost && <NewPost />*/}
-      <NewPost />
+      {idPost !== '' ? <ModifyPost /> : <NewPost />}
       <WorkTchat />
       
     </section>
