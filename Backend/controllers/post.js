@@ -83,7 +83,7 @@ exports.modifyPost = (req, res, next) => {
   Post.findOne({_id: req.params.id})
     .then((post) => {
 
-      if (post.userId != req.auth.userId) {
+      if (post.userId != req.auth.userId && !req.body.admin) {
         res.status(401).json({ message : 'Not authorized'})
       } 
 
@@ -91,6 +91,7 @@ exports.modifyPost = (req, res, next) => {
         Post.updateOne({ _id: req.params.id}, { ...postObject, _id: req.params.id})
           .then(() => res.status(200).json({message : 'Post modifié!'}))
           .catch(error => res.status(401).json({ error }))
+
       }
 
     })
@@ -105,7 +106,7 @@ exports.supprimPost = (req, res, next) => {
   Post.findOne({ _id: req.params.id})
     .then(post => {
 
-      if (post.userId != req.auth.userId) {
+      if (post.userId != req.auth.userId && !req.body.admin) {
         res.status(401).json({message: 'Not authorized'})
       } 
 

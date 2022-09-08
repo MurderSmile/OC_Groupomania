@@ -14,6 +14,10 @@ function NewPost() {
 
       const imageUrl = fileImage
 
+      let now = new Date()
+      const date = now.toLocaleDateString()
+      const time = now.toLocaleTimeString()
+
       return fetch('http://localhost:5500/api/posts/', {
         method: 'POST',
         headers: {
@@ -21,7 +25,7 @@ function NewPost() {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({author, text}),
+        body: JSON.stringify({author, text, date, time}),
       })
         .then((res) => res.json())
 
@@ -37,7 +41,7 @@ function NewPost() {
     };
 
     return (
-      <form id="createPost" onSubmit={() => CreatePost}>
+      <form id="createPost" onSubmit={CreatePost}>
         <label htmlFor="createPostPicture">Image</label>
         <br />
         <input

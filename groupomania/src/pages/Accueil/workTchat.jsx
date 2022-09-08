@@ -2,23 +2,21 @@
 import '../../utils/styles/css/index.css';
 //import DefaultPicture from '../../assets/656510.jpg';
 import { useState, useEffect, useContext } from 'react';
-
 import { IdContext } from '../../utils/context';
-import findAll from '../../utils/api.jsx'
 
-/////////////////////////// Paramètres ///////////////////////////////
 
 const token = sessionStorage.getItem('token');
-const author = sessionStorage.getItem('name')
+const author = sessionStorage.getItem('name');
+const admin = JSON.parse(sessionStorage.getItem('auth'));
 
-///////////// Génération des posts //////////////
-
+////////////////// Génération des posts //////////////////
 function WorkTchat(){ 
   const [posts, setPosts] = useState([])  
   const {setIdPost} = useContext(IdContext)
 
-  useEffect(()=>{
 
+  useEffect(()=>{
+    ////////// Récupération des Posts ///////////
     fetch('http://localhost:5500/api/posts/', {
       method: 'GET',
       headers: {
@@ -28,22 +26,31 @@ function WorkTchat(){
       },
     })
     .then((res) => res.json())
-
     .then((resJson) => setPosts(resJson))
-
     .catch((error) => console.log(error))
     
-    /*GetApi()
-    async function GetApi(){
-      const data = await findAll()
-      setPosts(data)
-    }*/
-
   },[]);
 
-  
+
+  ////// Classement par ordre chronologique ///////
+  posts.sort((a, b) => {
+
+    if (a.date < b.date) return 1
+    if (a.date > b.date) return -1
+    // eslint-disable-next-line no-cond-assign
+    if (a.date = b.date){
+
+      if (a.time < b.time) return 1
+      if (a.time > b.time) return -1
+
+    }
+  })
+
+
+  //////////// Génération de chaque post ///////////
   return (
     <div id="postList">
+
     {posts.map((post) => 
      
       <div className="post" key={post._id}>
@@ -53,13 +60,14 @@ function WorkTchat(){
         <span>Créer le : {post.date} à {post.time}</span>
 
         <div className="postInteraction">
-          {author === post.author && (<button onClick={() => {setIdPost(post._id)}}> Modifier </button>)}
+          {author === post.author || admin ? (<button onClick={() => {setIdPost(post._id)}}> Modifier </button>) : null }
           <button onClick={() => {Like(post._id)}}> {post.likes} Likes </button>
-          {author === post.author && (<button onClick={() => {SupprimPost(post._id)}}> Supprimer </button>)}
+          {author === post.author || admin ? (<button onClick={() => {SupprimPost(post._id)}}> Supprimer </button>) : null}
         </div>
       </div>
     
     )}
+
     </div>
   )
 }
@@ -69,14 +77,14 @@ function WorkTchat(){
   //////////////// Créer un like //////////////////
     function Like(id){
 
-      return fetch(`http://localhost:5500/api/posts/like/${id}`, {
+      return fetch(`http://localhost:5500/api/posts/${id}/like`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({  }),
+        body: JSON.stringify({like:1 }),
       })
         .then((res) => res.json())
 
@@ -88,7 +96,6 @@ function WorkTchat(){
           console.log(error);
         });
     }
-  //////////////// Créer un like //////////////////
 
 
   /////////////////////////// Supprimer un Post ////////////////////////
@@ -100,6 +107,7 @@ function WorkTchat(){
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({ admin }),
       })
         .then((res) => res.json())
 
@@ -111,8 +119,6 @@ function WorkTchat(){
           console.log(error);
         });
     }
-  /////////////////////////// Supprimer un Post ////////////////////////
 
-////////////// Génération d'un post(modif, like, supprim) //////////////
-
+    
 export default WorkTchat;

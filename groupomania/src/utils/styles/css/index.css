@@ -138,7 +138,7 @@ footer {
   background-color: #FFD7D7;
   box-shadow: 5px -5px 10px #FD2D01;
   border-radius: 50px;
-  height: 600px;
+  max-height: 600px;
   width: 550px;
   margin-top: 10px;
   margin-bottom: 10px;
