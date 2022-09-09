@@ -14,7 +14,6 @@ exports.signup = (req, res, next) => {
       });
       user
         .save()
-        // .then(() => res.status(201).json({ message: "Utilisateur créé !" }
         .then(() => res.status(201).json({
           message: "Utilisateur créé !",
           userId: user._id,
@@ -37,15 +36,18 @@ exports.login = (req, res, next) => {
         res
           .status(401)
           .json({ message: "Paire login/mot de passe incorrecte" });
+
       } else {
         // Comparaison du mot de passe avec le hach enregistré //
         bcrypt
           .compare(req.body.password, user.password)
           .then((valid) => {
+
             if (!valid) {
               res
                 .status(401)
                 .json({ message: "Paire login/mot de passe incorrecte" });
+                
             } else {
               res.status(200).json({
                 // Génération du token //

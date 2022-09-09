@@ -158,21 +158,24 @@ exports.like = (req, res, next) => {
 
   Post.findOne({ _id: req.params.id })
     .then(post => {
-
+ 
       // Si l'utilisateur n'a pas encore aimé un post //
-      if(post.usersLiked.indexOf(req.body.userId) == -1) {
+      //if(post.usersLiked.indexOf(req.body.userId) == -1) {
+      if(post.usersLiked.indexOf(req.auth.userId) == -1) {
         
         // L'utilisateur aime le post //
         if(req.body.like == 1) { 
-          post.usersLiked.push(req.body.userId);
+          //post.usersLiked.push(req.body.userId);
+          post.usersLiked.push(req.auth.userId);
           post.likes += req.body.like;
         } 
 
       }
 
       // Si l'utilisateur veut annuler son "like"
-      if(post.usersLiked.indexOf(req.body.userId) != -1 && req.body.like == 0) {
-        const likesUserIndex = post.usersLiked.findIndex(user => user === req.body.userId)
+      if(post.usersLiked.indexOf(req.auth.userId) != -1 && req.body.like == 0) {
+        //const likesUserIndex = post.usersLiked.findIndex(user => user === req.body.userId)
+        const likesUserIndex = post.usersLiked.findIndex(user => user === req.auth.userId)
         post.usersLiked.splice(likesUserIndex, 1)
         post.likes -= 1;
       }

@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 ////////// Création et envoi d'un post //////////
-const token = sessionStorage.getItem('token');
 const author = sessionStorage.getItem('name');
+const profil = JSON.parse(sessionStorage.getItem('profil'))
 
 function NewPost() {
     const [text, setText] = useState('');
@@ -21,7 +21,7 @@ function NewPost() {
       return fetch('http://localhost:5500/api/posts/', {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${profil.token}`,
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },

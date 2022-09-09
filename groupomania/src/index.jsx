@@ -14,9 +14,10 @@ import Accueil from './pages/Accueil';
 import { IdProvider } from './utils/context';
 
 function Identification() {
-  const token = sessionStorage.getItem('token');
+  const profil = JSON.parse(sessionStorage.getItem('profil'))
+  console.log(profil);
 
-  if (!token || token === '') {
+  if (!profil) {
     return (
       <Routes>
         <Route path="*" element={<Compte />} />

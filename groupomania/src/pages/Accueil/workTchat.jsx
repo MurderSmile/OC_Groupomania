@@ -3,11 +3,11 @@ import '../../utils/styles/css/index.css';
 //import DefaultPicture from '../../assets/656510.jpg';
 import { useState, useEffect, useContext } from 'react';
 import { IdContext } from '../../utils/context';
+import likePost from './likePost';
 
-
-const token = sessionStorage.getItem('token');
 const author = sessionStorage.getItem('name');
-const admin = JSON.parse(sessionStorage.getItem('auth'));
+const profil = JSON.parse(sessionStorage.getItem('profil'))
+//const admin = JSON.parse(sessionStorage.getItem('auth'));
 
 ////////////////// Génération des posts //////////////////
 function WorkTchat(){ 
@@ -20,7 +20,7 @@ function WorkTchat(){
     fetch('http://localhost:5500/api/posts/', {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${profil.token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
@@ -60,9 +60,9 @@ function WorkTchat(){
         <span>Créer le : {post.date} à {post.time}</span>
 
         <div className="postInteraction">
-          {author === post.author || admin ? (<button onClick={() => {setIdPost(post._id)}}> Modifier </button>) : null }
-          <button onClick={() => {Like(post._id)}}> {post.likes} Likes </button>
-          {author === post.author || admin ? (<button onClick={() => {SupprimPost(post._id)}}> Supprimer </button>) : null}
+          {author === post.author || profil.admin ? (<button onClick={() => {setIdPost(post._id)}}> Modifier </button>) : null }
+          <button onClick={() => {likePost(post._id)}}> {post.likes} like </button>
+          {author === post.author || profil.admin ? (<button onClick={() => {SupprimPost(post._id)}}> Supprimer </button>) : null}
         </div>
       </div>
     
@@ -75,7 +75,7 @@ function WorkTchat(){
 
 
   //////////////// Créer un like //////////////////
-    function Like(id){
+    /*function Like(id){
 
       return fetch(`http://localhost:5500/api/posts/${id}/like`, {
         method: 'POST',
@@ -95,7 +95,7 @@ function WorkTchat(){
         .catch((error) => {
           console.log(error);
         });
-    }
+    }*/
 
 
   /////////////////////////// Supprimer un Post ////////////////////////
@@ -103,11 +103,11 @@ function WorkTchat(){
       return fetch(`http://localhost:5500/api/posts/${id}`, {
         method: 'DELETE',
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${profil.token}`,
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ admin }),
+        body: JSON.stringify({admin:profil.admin}),
       })
         .then((res) => res.json())
 

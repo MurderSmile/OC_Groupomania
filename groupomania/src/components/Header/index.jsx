@@ -3,23 +3,23 @@ import DefaultPicture from '../../assets/profile.png';
 import AdminImage from '../../assets/1200px-OOjs_UI_icon_eye.svg.png'
 
 let localName = sessionStorage.getItem("name")
-const name = !localName || localName === '' ? 'Déconnecté' : localName
+const name = !localName ? 'Déconnecté' : localName
 
-function deconnect(){
+const deconnect = () =>{
   sessionStorage.clear();
   window.location.href = '../';
 }
 
 function Header() {
-  const auth = JSON.parse(sessionStorage.getItem("auth"))
+  const profil = JSON.parse(sessionStorage.getItem('profil'))
 
   return (
     <nav>
       <img id="logo" src={OriginalLogo} alt="Groupania" />
       <div id="profil">
-        <img src={auth ? AdminImage : DefaultPicture} alt="" />
+        <img src={profil && profil.admin ? AdminImage : DefaultPicture} alt="" />
         <span>{name}</span>
-        {auth ? <span>----- Mode Admin -----</span> : null}
+        {profil && profil.admin ? <span>----- Mode Admin -----</span> : null}
         {localName && localName !=='' && <button onClick={deconnect}>se déconnecter</button>}
       </div>
     </nav>

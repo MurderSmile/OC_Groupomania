@@ -1,8 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import { IdContext } from "../../utils/context";
 
-const token = sessionStorage.getItem('token');
-const admin = JSON.parse(sessionStorage.getItem('auth'));
+const profil = JSON.parse(sessionStorage.getItem('profil'))
 
 //////////////////// Modification d'un Post //////////////////////////
 function ModifyPost() {
@@ -18,7 +17,7 @@ function ModifyPost() {
     fetch(`http://localhost:5500/api/posts/${idPost}`, {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${profil.token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
@@ -41,11 +40,11 @@ function ModifyPost() {
     return fetch(`http://localhost:5500/api/posts/${idPost}`, {
       method: 'PUT',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${profil.token}`,
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ text, imageUrl, admin }),
+      body: JSON.stringify({ text, imageUrl, admin:profil.admin }),
     })
       .then((res) => res.json())
       .then((resJson) => {
