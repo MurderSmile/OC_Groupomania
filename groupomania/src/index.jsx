@@ -15,7 +15,6 @@ import { IdProvider } from './utils/context';
 
 function Identification() {
   const profil = JSON.parse(sessionStorage.getItem('profil'))
-  console.log(profil);
 
   if (!profil) {
     return (

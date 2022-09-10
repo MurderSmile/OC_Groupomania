@@ -7,7 +7,6 @@ import likePost from './likePost';
 
 const author = sessionStorage.getItem('name');
 const profil = JSON.parse(sessionStorage.getItem('profil'))
-//const admin = JSON.parse(sessionStorage.getItem('auth'));
 
 ////////////////// Génération des posts //////////////////
 function WorkTchat(){ 
@@ -71,32 +70,6 @@ function WorkTchat(){
     </div>
   )
 }
-
-
-
-  //////////////// Créer un like //////////////////
-    /*function Like(id){
-
-      return fetch(`http://localhost:5500/api/posts/${id}/like`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({like:1 }),
-      })
-        .then((res) => res.json())
-
-        .then((resJson) => {
-          console.log(resJson);
-        })
-
-        .catch((error) => {
-          console.log(error);
-        });
-    }*/
-
 
   /////////////////////////// Supprimer un Post ////////////////////////
     function SupprimPost(id) {

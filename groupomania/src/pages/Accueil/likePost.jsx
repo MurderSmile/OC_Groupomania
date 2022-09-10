@@ -15,12 +15,10 @@ function getPost(id) {
 }
 
 async function likePost(id) {
-  const usersLiked = await getPost(id).then(response => response.usersLiked)
-  console.log(usersLiked)
-  console.log(JSON.stringify(profil.userId))
 
-  const like = usersLiked.indexOf(JSON.stringify(profil.userId)) !== -1 ? 1 : 0
-  console.log(like);
+  const usersLiked = await getPost(id).then(response => response.usersLiked)
+
+  const like = usersLiked.includes(profil.userId) ? 0 : 1
 
   return fetch(`http://localhost:5500/api/posts/${id}/like`, {
     method: 'POST',
