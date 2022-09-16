@@ -107,6 +107,7 @@ footer {
 }
 #createPostContenu, #modifPostContenu {
   background-color: #FD2D01;
+  resize: none;
   height: 90%;
   width: 90%;
 }

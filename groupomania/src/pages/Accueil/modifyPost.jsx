@@ -5,7 +5,7 @@ const profil = JSON.parse(sessionStorage.getItem('profil'))
 
 //////////////////// Modification d'un Post //////////////////////////
 function ModifyPost() {
-  const {idPost, setIdPost} = useContext(IdContext)
+  const {idPost} = useContext(IdContext)
 
   const [text, setText] = useState('');
   const [fileImage, setFileImage] = useState('');

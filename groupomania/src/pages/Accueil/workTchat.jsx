@@ -2,8 +2,8 @@
 import '../../utils/styles/css/index.css';
 //import DefaultPicture from '../../assets/656510.jpg';
 import { useState, useEffect, useContext } from 'react';
-import { IdContext } from '../../utils/context';
-import likePost from './likePost';
+import { IdContext, LikeContext } from '../../utils/context';
+import LikePost from './likePost';
 
 const author = sessionStorage.getItem('name');
 const profil = JSON.parse(sessionStorage.getItem('profil'))
@@ -12,7 +12,7 @@ const profil = JSON.parse(sessionStorage.getItem('profil'))
 function WorkTchat(){ 
   const [posts, setPosts] = useState([])  
   const {setIdPost} = useContext(IdContext)
-
+  const {likeOnePost} = useContext(LikeContext)
 
   useEffect(()=>{
     ////////// Récupération des Posts ///////////
@@ -60,7 +60,8 @@ function WorkTchat(){
 
         <div className="postInteraction">
           {author === post.author || profil.admin ? (<button onClick={() => {setIdPost(post._id)}}> Modifier </button>) : null }
-          <button onClick={() => {likePost(post._id)}}> {post.likes} like </button>
+          {/*<button onClick={() => {likePost(post._id)}}> {post.likes} {likeOnePost === 1 ? "nice" : "bad"} </button>*/}
+          <LikePost post = {post} />
           {author === post.author || profil.admin ? (<button onClick={() => {SupprimPost(post._id)}}> Supprimer </button>) : null}
         </div>
       </div>

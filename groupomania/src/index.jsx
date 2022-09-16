@@ -11,7 +11,7 @@ import Error from './components/Error';
 import Compte from './pages/Compte/index';
 import Accueil from './pages/Accueil';
 
-import { IdProvider } from './utils/context';
+import { IdProvider, LikeProvider } from './utils/context';
 
 function Identification() {
   const profil = JSON.parse(sessionStorage.getItem('profil'))
@@ -37,13 +37,15 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <IdProvider>
+        <LikeProvider>
       
-        <Header />
+          <Header />
 
-        <Identification />
+          <Identification />
 
-        <Footer />
-        
+          <Footer />
+          
+        </LikeProvider>
       </IdProvider>
     </BrowserRouter>
   </React.StrictMode>

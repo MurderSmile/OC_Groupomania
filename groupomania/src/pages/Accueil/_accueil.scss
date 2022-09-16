@@ -42,6 +42,7 @@
 
   &Contenu {
     background-color: $primaire;
+    resize: none;
     height: 90%;
     width: 90%;
     @media screen and (max-width: 600px){
