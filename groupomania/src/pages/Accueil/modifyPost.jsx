@@ -1,10 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 import { IdContext } from "../../utils/context";
 
-const profil = JSON.parse(sessionStorage.getItem('profil'))
 
 //////////////////// Modification d'un Post //////////////////////////
 function ModifyPost() {
+  const profil = JSON.parse(sessionStorage.getItem('profil'))
   const {idPost} = useContext(IdContext)
 
   const [text, setText] = useState('');
@@ -29,7 +29,7 @@ function ModifyPost() {
     })
     .catch((error) => console.log(error))
           
-  },[idPost]);
+  },[idPost, profil.token]);
 
   /////////////////// envoi de la modification du post /////////////
   const ModifyOnePost = (e) =>{

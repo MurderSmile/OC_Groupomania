@@ -2,7 +2,7 @@
 import '../../utils/styles/css/index.css';
 //import DefaultPicture from '../../assets/656510.jpg';
 import { useState, useEffect, useContext } from 'react';
-import { IdContext, LikeContext } from '../../utils/context';
+import { IdContext } from '../../utils/context';
 import LikePost from './likePost';
 
 const author = sessionStorage.getItem('name');
@@ -10,9 +10,9 @@ const profil = JSON.parse(sessionStorage.getItem('profil'))
 
 ////////////////// Génération des posts //////////////////
 function WorkTchat(){ 
-  const [posts, setPosts] = useState([])  
+  const localPosts = JSON.parse(localStorage.getItem('posts'))
+  const [posts, setPosts] = useState(localPosts ? localPosts : [])  
   const {setIdPost} = useContext(IdContext)
-  const {likeOnePost} = useContext(LikeContext)
 
   useEffect(()=>{
     ////////// Récupération des Posts ///////////
@@ -25,7 +25,10 @@ function WorkTchat(){
       },
     })
     .then((res) => res.json())
-    .then((resJson) => setPosts(resJson))
+    .then((resJson) => {
+      setPosts(resJson)
+      localStorage.setItem('posts', JSON.stringify(resJson))
+    })
     .catch((error) => console.log(error))
     
   },[]);
@@ -60,7 +63,6 @@ function WorkTchat(){
 
         <div className="postInteraction">
           {author === post.author || profil.admin ? (<button onClick={() => {setIdPost(post._id)}}> Modifier </button>) : null }
-          {/*<button onClick={() => {likePost(post._id)}}> {post.likes} {likeOnePost === 1 ? "nice" : "bad"} </button>*/}
           <LikePost post = {post} />
           {author === post.author || profil.admin ? (<button onClick={() => {SupprimPost(post._id)}}> Supprimer </button>) : null}
         </div>
@@ -74,7 +76,7 @@ function WorkTchat(){
 
   /////////////////////////// Supprimer un Post ////////////////////////
     function SupprimPost(id) {
-      return fetch(`http://localhost:5500/api/posts/${id}`, {
+      fetch(`http://localhost:5500/api/posts/${id}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${profil.token}`,
@@ -87,11 +89,13 @@ function WorkTchat(){
 
         .then((resJson) => {
           alert(resJson.message);
+          window.location.reload()
         })
 
         .catch((error) => {
           console.log(error);
         });
+      
     }
 
     

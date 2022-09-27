@@ -30,6 +30,9 @@ exports.createPost = (req, res, next) => {
 
 // Ajout d'une nouvelle post //
 exports.createPost = (req, res, next) => {
+
+  //res.status(200).json({ message: 'Backend ateint !'})
+
   try {
     const postObject = 
 
@@ -53,7 +56,8 @@ exports.createPost = (req, res, next) => {
     })
   
     post.save()
-      .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+      //.then(() => res.status(201).json({ message: 'Objet enregistré !'}))
+      .then(() => res.status(201).json({ message: req.body}))
       .catch(error => res.status(400).json({error}))
   
   }

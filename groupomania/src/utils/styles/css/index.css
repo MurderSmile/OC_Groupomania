@@ -83,7 +83,7 @@ footer {
   border-radius: 50px;
   margin-top: 10px;
   margin-bottom: 10px;
-  height: 600px;
+  height: 400px;
   width: 500px;
 }
 @media screen and (max-width: 600px) {
@@ -99,6 +99,7 @@ footer {
 #createPostPicture, #modifPostPicture {
   background-color: #FD2D01;
   border-radius: 50px;
+  height: 40px;
 }
 @media screen and (max-width: 600px) {
   #createPostPicture, #modifPostPicture {
