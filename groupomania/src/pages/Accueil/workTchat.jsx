@@ -4,6 +4,7 @@ import '../../utils/styles/css/index.css';
 import { useState, useEffect, useContext } from 'react';
 import { IdContext } from '../../utils/context';
 import LikePost from './likePost';
+import DeletePost from './deletePost';
 
 const author = sessionStorage.getItem('name');
 const profil = JSON.parse(sessionStorage.getItem('profil'))
@@ -63,8 +64,8 @@ function WorkTchat(){
 
         <div className="postInteraction">
           {author === post.author || profil.admin ? (<button onClick={() => {setIdPost(post._id)}}> Modifier </button>) : null }
-          <LikePost post = {post} />
-          {author === post.author || profil.admin ? (<button onClick={() => {SupprimPost(post._id)}}> Supprimer </button>) : null}
+          {author !== post.author ? <LikePost post = {post} /> : null}
+          {author === post.author || profil.admin ? <DeletePost post = {post} /> : null }
         </div>
       </div>
     
@@ -73,30 +74,6 @@ function WorkTchat(){
     </div>
   )
 }
-
-  /////////////////////////// Supprimer un Post ////////////////////////
-    function SupprimPost(id) {
-      fetch(`http://localhost:5500/api/posts/${id}`, {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${profil.token}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({admin:profil.admin}),
-      })
-        .then((res) => res.json())
-
-        .then((resJson) => {
-          alert(resJson.message);
-          window.location.reload()
-        })
-
-        .catch((error) => {
-          console.log(error);
-        });
-      
-    }
 
     
 export default WorkTchat;

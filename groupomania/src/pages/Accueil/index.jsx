@@ -13,8 +13,7 @@ function Accueil() {
   return (
     <section id="accueil">
 
-      {/*idPost ? <ModifyPost /> : <NewPost />*/}
-      <NewPost />
+      {idPost ? <ModifyPost /> : <NewPost />}
       <WorkTchat />
       
     </section>
