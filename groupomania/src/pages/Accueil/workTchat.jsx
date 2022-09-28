@@ -3,8 +3,8 @@ import '../../utils/styles/css/index.css';
 //import DefaultPicture from '../../assets/656510.jpg';
 import { useState, useEffect, useContext } from 'react';
 import { IdContext } from '../../utils/context';
-import LikePost from './likePost';
-import DeletePost from './deletePost';
+import LikePost from './InteractionsPost/likePost';
+import DeletePost from './InteractionsPost/deletePost';
 
 const author = sessionStorage.getItem('name');
 const profil = JSON.parse(sessionStorage.getItem('profil'))

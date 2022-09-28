@@ -3,7 +3,7 @@ import { IdContext } from '../../utils/context';
 import '../../utils/styles/css/index.css';
 
 import NewPost from './newPost'
-import ModifyPost from './modifyPost';
+import ModifyPost from './InteractionsPost/modifyPost';
 import WorkTchat from './workTchat';
 
 

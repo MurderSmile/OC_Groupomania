@@ -26,7 +26,7 @@ function DeletePost(post) {
 
 
   return (
-    <button onClick={() => { supprim() }}>
+    <button onClick={() => {supprim()}}>
       Supprimer
     </button>
   )

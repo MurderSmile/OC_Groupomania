@@ -117,7 +117,7 @@ footer {
     width: 90%;
   }
 }
-#createPostSubmit, #modifPostSubmit {
+#createPostSubmit, #createPostNull, #modifPostSubmit, #modifPostNull {
   border: none;
   justify-content: center;
   font-weight: bold;
@@ -126,7 +126,7 @@ footer {
   border-radius: 50px;
   margin: 5px;
 }
-#createPostSubmit:hover, #modifPostSubmit:hover {
+#createPostSubmit:hover, #createPostNull:hover, #modifPostSubmit:hover, #modifPostNull:hover {
   background-color: black;
   color: white;
 }

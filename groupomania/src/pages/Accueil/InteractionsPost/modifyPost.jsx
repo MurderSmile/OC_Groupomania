@@ -1,11 +1,11 @@
 import { useState, useEffect, useContext } from "react";
-import { IdContext } from "../../utils/context";
+import { IdContext } from "../../../utils/context";
 
 
 //////////////////// Modification d'un Post //////////////////////////
 function ModifyPost() {
   const profil = JSON.parse(sessionStorage.getItem('profil'))
-  const {idPost} = useContext(IdContext)
+  const {idPost, setIdpost} = useContext(IdContext)
 
   const [text, setText] = useState('');
   const [fileImage, setFileImage] = useState('');
@@ -76,8 +76,6 @@ function ModifyPost() {
       <textarea
         name="modifPostContenu"
         id="modifPostContenu"
-        rows=""
-        cols=""
         placeholder="écrivez votre message"
         onChange={(e) => setText(e.target.value)}
         value={text}
@@ -86,7 +84,7 @@ function ModifyPost() {
       <br />
 
       <input id="modifPostSubmit" type="submit" value="Modifier un post" />
-          
+      <input id="modifPostNull" type="button" value="Annuler" onClick={() =>{console.log(idPost);}} />
     </form>
   );
 
