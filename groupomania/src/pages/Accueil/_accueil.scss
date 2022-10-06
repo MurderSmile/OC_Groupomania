@@ -13,7 +13,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 40px;
   background-color: $tertiaire;
   overflow-wrap: break-word;
   border-radius: 50px;
@@ -21,8 +20,8 @@
   margin-bottom: 10px;
   height: 400px;
   width: 500px;
-
   @media screen and (max-width: 600px){
+    border-radius: 50px 50px 0px 0px;
     width: 90%;
   }
 
@@ -51,17 +50,26 @@
     }
   }
   
-  &Submit, &Null {
-    border: none;
-    justify-content: center;
-    font-weight: bold;
-    background-color: $secondaire;
-    color: black;
-    border-radius: 50px;
-    margin: 5px;
-    &:hover{
-      background-color: black;
-      color: white;
+  &Interactions {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    &Submit, &Null {
+      border: none;
+      justify-content: center;
+      font-weight: bold;
+      background-color: $secondaire;
+      color: black;
+      border-radius: 50px;
+      margin: 5px;
+      cursor: pointer;
+      @media screen and (max-width: 600px){
+        padding: 5px;
+      }
+      &:active{
+        background-color: black;
+        color: white;
+      }
     }
   }
 }
@@ -74,7 +82,7 @@
   justify-content: space-between;
   overflow-y: scroll;
   background-color: $secondaire;
-  box-shadow: 5px -5px 10px $primaire;
+  box-shadow: 5px -5px 10px $primaire, -5px 5px 10px $primaire;
   border-radius: 50px;
   max-height: 600px;
   width: 550px;
@@ -82,6 +90,8 @@
   margin-bottom: 10px;
   @media screen and (max-width: 600px){
     width: 90%;
+    box-shadow: none;
+    border: 5px solid $primaire;
   }
 
   .post {
@@ -90,12 +100,13 @@
     align-items: center;
     overflow-wrap: break-word;
     background-color: $tertiaire;
-    box-shadow: 5px -5px 10px $primaire;
     border-radius: 50px;
     margin: 10px;
     width: 500px;
     @media screen and (max-width: 600px){
-      width: 90%;
+      border-radius: 0px;
+      width: 95%;
+      margin: 5px;
     }
 
     &Picture {
@@ -108,6 +119,15 @@
     &Content {
       background-color: $primaire;
       width: 90%;
+      padding-bottom: 50px;
+    }
+
+    &Date {
+      display: flex;
+      align-items: center;
+      @media screen and (max-width: 600px){
+        flex-direction: column;
+      }
     }
 
     &Interaction {
@@ -124,7 +144,14 @@
       color: black;
       border-radius: 50px;
       margin: 5px;
-      &:hover{
+      cursor: pointer;
+
+      a {
+        text-decoration: none;
+        color: black;
+      }
+
+      &:active{
         background-color: black;
         color: white;
       }
@@ -135,10 +162,6 @@
       color: white;
       justify-content: center;
       margin: 5px;
-      @media screen and (max-width: 600px){
-        background-color: $primaire;
-        border-radius: 50px;
-      }
     }
   }
 }

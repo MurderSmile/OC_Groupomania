@@ -62,6 +62,11 @@ function NewPost() {
         });
     };
 
+    const Reinitialiser = () =>{
+      setText('')
+      setFile(null)
+    }
+
     return (
       <form id="createPost"  method="post" encType='multipart/form-data' onSubmit={CreatePost}>
         <label htmlFor="createPostPicture">Image</label>
@@ -80,16 +85,18 @@ function NewPost() {
         <textarea
           name="createPostContenu"
           id="createPostContenu"
-          rows=""
-          cols=""
           placeholder="écrivez votre message"
           onChange={(e) => setText(e.target.value)}
           value={text}
         ></textarea>
 
         <br />
-
-        <input id="createPostSubmit" type="submit" value="Envoyer un post" />
+        
+        <div id="createPostInteractions">
+          <input id="createPostInteractionsSubmit" type="submit" value="Envoyer le post" />
+          <button id="createPostInteractionsNull" type="button" onClick={() =>{Reinitialiser()}}>Réinitialiser</button>
+        </div>
+        
       </form>
     );
   }

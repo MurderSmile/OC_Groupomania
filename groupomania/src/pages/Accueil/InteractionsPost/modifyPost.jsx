@@ -5,7 +5,7 @@ import { IdContext } from "../../../utils/context";
 //////////////////// Modification d'un Post //////////////////////////
 function ModifyPost() {
   const profil = JSON.parse(sessionStorage.getItem('profil'))
-  const {idPost, setIdpost} = useContext(IdContext)
+  const {idPost, setIdPost} = useContext(IdContext)
 
   const [text, setText] = useState('');
   const [fileImage, setFileImage] = useState('');
@@ -66,7 +66,7 @@ function ModifyPost() {
         name="modifPostPicture"
         id="modifPostPicture"
         onChange={(e) => setFileImage(e.target.value)}
-        value={fileImage}
+        value={fileImage || ''}
       />
   
       <br />
@@ -78,13 +78,16 @@ function ModifyPost() {
         id="modifPostContenu"
         placeholder="écrivez votre message"
         onChange={(e) => setText(e.target.value)}
-        value={text}
+        value={text || ''}
       ></textarea>
   
       <br />
+      
+      <div id="modifPostInteractions">
+        <input id="modifPostInteractionsSubmit" type="submit" value="Modifier le post" />
+        <button id="modifPostInteractionsNull" type="button" onClick={() =>{setIdPost(null)}}>Annuler</button>
+      </div>
 
-      <input id="modifPostSubmit" type="submit" value="Modifier un post" />
-      <input id="modifPostNull" type="button" value="Annuler" onClick={() =>{console.log(idPost);}} />
     </form>
   );
 

@@ -31,6 +31,11 @@ nav {
   height: 300px;
   margin-left: 10px;
 }
+@media screen and (max-width: 600px) {
+  #logo {
+    margin-right: 10px;
+  }
+}
 
 #profil {
   display: flex;
@@ -46,6 +51,9 @@ nav {
   align-self: center;
   height: 100px;
   width: 100px;
+}
+#profil button {
+  cursor: pointer;
 }
 
 footer {
@@ -77,7 +85,6 @@ footer {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 40px;
   background-color: #4E5166;
   overflow-wrap: break-word;
   border-radius: 50px;
@@ -88,6 +95,7 @@ footer {
 }
 @media screen and (max-width: 600px) {
   #createPost, #modifPost {
+    border-radius: 50px 50px 0px 0px;
     width: 90%;
   }
 }
@@ -117,7 +125,12 @@ footer {
     width: 90%;
   }
 }
-#createPostSubmit, #createPostNull, #modifPostSubmit, #modifPostNull {
+#createPostInteractions, #modifPostInteractions {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+#createPostInteractionsSubmit, #createPostInteractionsNull, #modifPostInteractionsSubmit, #modifPostInteractionsNull {
   border: none;
   justify-content: center;
   font-weight: bold;
@@ -125,8 +138,14 @@ footer {
   color: black;
   border-radius: 50px;
   margin: 5px;
+  cursor: pointer;
 }
-#createPostSubmit:hover, #createPostNull:hover, #modifPostSubmit:hover, #modifPostNull:hover {
+@media screen and (max-width: 600px) {
+  #createPostInteractionsSubmit, #createPostInteractionsNull, #modifPostInteractionsSubmit, #modifPostInteractionsNull {
+    padding: 5px;
+  }
+}
+#createPostInteractionsSubmit:active, #createPostInteractionsNull:active, #modifPostInteractionsSubmit:active, #modifPostInteractionsNull:active {
   background-color: black;
   color: white;
 }
@@ -138,7 +157,7 @@ footer {
   justify-content: space-between;
   overflow-y: scroll;
   background-color: #FFD7D7;
-  box-shadow: 5px -5px 10px #FD2D01;
+  box-shadow: 5px -5px 10px #FD2D01, -5px 5px 10px #FD2D01;
   border-radius: 50px;
   max-height: 600px;
   width: 550px;
@@ -148,6 +167,8 @@ footer {
 @media screen and (max-width: 600px) {
   #postList {
     width: 90%;
+    box-shadow: none;
+    border: 5px solid #FD2D01;
   }
 }
 #postList .post {
@@ -156,14 +177,15 @@ footer {
   align-items: center;
   overflow-wrap: break-word;
   background-color: #4E5166;
-  box-shadow: 5px -5px 10px #FD2D01;
   border-radius: 50px;
   margin: 10px;
   width: 500px;
 }
 @media screen and (max-width: 600px) {
   #postList .post {
-    width: 90%;
+    border-radius: 0px;
+    width: 95%;
+    margin: 5px;
   }
 }
 #postList .postPicture {
@@ -175,6 +197,16 @@ footer {
 #postList .postContent {
   background-color: #FD2D01;
   width: 90%;
+  padding-bottom: 50px;
+}
+#postList .postDate {
+  display: flex;
+  align-items: center;
+}
+@media screen and (max-width: 600px) {
+  #postList .postDate {
+    flex-direction: column;
+  }
 }
 #postList .postInteraction {
   display: flex;
@@ -189,8 +221,13 @@ footer {
   color: black;
   border-radius: 50px;
   margin: 5px;
+  cursor: pointer;
 }
-#postList .post button:hover {
+#postList .post button a {
+  text-decoration: none;
+  color: black;
+}
+#postList .post button:active {
   background-color: black;
   color: white;
 }
@@ -199,12 +236,6 @@ footer {
   color: white;
   justify-content: center;
   margin: 5px;
-}
-@media screen and (max-width: 600px) {
-  #postList .post span {
-    background-color: #FD2D01;
-    border-radius: 50px;
-  }
 }
 
 /*# sourceMappingURL=index.css.map */

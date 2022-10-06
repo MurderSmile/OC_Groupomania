@@ -4,6 +4,7 @@ function LikePost(post){
 
   const profil = JSON.parse(sessionStorage.getItem('profil'))
   const userLiked = post.post.usersLiked.includes(profil.userId)
+
   const [likes, setLikes] = useState(post.post.likes)
   const [like, setLike] = useState(userLiked ? 0 : 1)
 
@@ -25,7 +26,7 @@ function LikePost(post){
       console.log(resJson)
       setLike(like === 1 ? 0 : 1)
       setLikes(like === 1 ? likes +1 : likes -1)
-
+      localStorage.clear()
     })
     
     .catch((error) => {console.log(error)})
@@ -35,7 +36,7 @@ function LikePost(post){
 
   return(
     <button onClick={() => {likeOnePost()}}> 
-       Liker: {likes} {like === 1 ? <i className="far fa-heart"></i> : <i className="fas fa-heart"></i>}
+      {likes} {like === 1 ? <i className="far fa-heart"></i> : <i className="fas fa-heart"></i>}
     </button>
   )
 }

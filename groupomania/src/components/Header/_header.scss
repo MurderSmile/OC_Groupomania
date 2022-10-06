@@ -12,6 +12,9 @@ nav {
 #logo {
   height: 300px;
   margin-left: 10px;
+  @media screen and (max-width: 600px){
+    margin-right: 10px;
+  }
 }
 
 #profil {
@@ -25,5 +28,8 @@ nav {
     align-self: center;
     height: 100px;
     width: 100px;
+  }
+  button{
+    cursor: pointer;
   }
 }

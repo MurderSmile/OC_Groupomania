@@ -60,11 +60,11 @@ function WorkTchat(){
         <span>{post.author}</span>
         <img className="postPicture" src={post.imageUrl} alt="" />
         <div className="postContent">{post.text}</div>
-        <span>Créer le : {post.date} à {post.time}</span>
+        <div className="postDate"> <span>Créer le : {post.date}</span><span>à {post.time}</span> </div>
 
         <div className="postInteraction">
-          {author === post.author || profil.admin ? (<button onClick={() => {setIdPost(post._id)}}> Modifier </button>) : null }
-          {author !== post.author ? <LikePost post = {post} /> : null}
+          {author === post.author || profil.admin ? (<button onClick={() => {setIdPost(post._id)}}> <a href="#modifPost">Modifier</a> </button>) : null }
+          <LikePost post = {post} /> 
           {author === post.author || profil.admin ? <DeletePost post = {post} /> : null }
         </div>
       </div>
