@@ -1,16 +1,41 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function LikePost(post){
+function LikePost(props){
 
   const profil = JSON.parse(sessionStorage.getItem('profil'))
-  const userLiked = post.post.usersLiked.includes(profil.userId)
+  
+  let userLiked = props.post.usersLiked.includes(profil.userId)
+  let [likes, setLikes] = useState(props.post.likes)
+  let [like, setLike] = useState(userLiked ? 0 : 1)
 
-  const [likes, setLikes] = useState(post.post.likes)
-  const [like, setLike] = useState(userLiked ? 0 : 1)
+  /*useEffect(()=>{
+    ////////// Récupération du Post ///////////
+    setInterval(() => {
+
+      fetch(`http://localhost:5500/api/posts/${props.post._id}`, {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${profil.token}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+
+      .then((res) => res.json())
+      .then((resJson) => {
+        setLikes(resJson.likes)
+      })
+      .catch((error) => console.log(error))  
+      
+    }, 3000);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);*/
+
 
   const likeOnePost = () => {
 
-    return fetch(`http://localhost:5500/api/posts/${post.post._id}/like`, {
+    return fetch(`http://localhost:5500/api/posts/${props.post._id}/like`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${profil.token}`,
@@ -24,9 +49,10 @@ function LikePost(post){
     .then((resJson) => {
 
       console.log(resJson)
+      console.log(props.post.usersLiked);
       setLike(like === 1 ? 0 : 1)
       setLikes(like === 1 ? likes +1 : likes -1)
-      localStorage.clear()
+      //localStorage.clear()
     })
     
     .catch((error) => {console.log(error)})

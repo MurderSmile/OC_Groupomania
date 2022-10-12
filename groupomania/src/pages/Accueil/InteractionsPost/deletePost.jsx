@@ -1,9 +1,9 @@
 const profil = JSON.parse(sessionStorage.getItem('profil'))
 
-function DeletePost(post) {
+function DeletePost(props) {
 
   const supprim = () => {
-    fetch(`http://localhost:5500/api/posts/${post.post._id}`, {
+    fetch(`http://localhost:5500/api/posts/${props.post._id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${profil.token}`,

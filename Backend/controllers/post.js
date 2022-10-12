@@ -2,38 +2,40 @@ const Post = require('../models/post')
 const fs = require('fs');
 const { json } = require('express');
 
-/*/ Ajout d'une nouvelle post //
-exports.createPost = (req, res, next) => {
-  //res.status(201).json({ message: 'Chemin, atteint !'}
-  try {
-    const postObject = req.body
-  
-    delete postObject._id;
-    delete postObject._userId;
+/*exports.createPost = async (req, res) => {
+  let picture = "";
+  console.log(req.body);
 
-    const post = new Post({
-      ...postObject,
-      userId: req.auth.userId,
-      imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-    })
-  
-    post.save()
-      .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
-      .catch(error => res.status(400).json({ message: post}))
-  
+  if (req.file !== undefined)
+    picture = `${req.protocol}://${req.get("host")}/images/${
+      req.file.filename
+    }`;
+
+  const newPost = new Post({
+    userId: req.body.userId,
+    imageUrl: picture,
+    date: req.body.date,
+    time: req.body.time,
+    author: req.body.author,
+    text: req.body.text,
+  });
+
+  try {
+    const post = await newPost.save();
+    return res.status(201).json(post);
+  } catch (err) {
+    return res.status(400).send(err);
   }
-  catch(error){ 
-    res.status(501).json({ message: "format incorrect" })
-  }
-  
 };*/
 
 // Ajout d'une nouvelle post //
 exports.createPost = (req, res, next) => {
+  
+  res.status(200).json({ message:'Backend ateint !'})
+  console.log(req.body)
 
-  //res.status(200).json({ message: 'Backend ateint !'})
 
-  try {
+  /*try {
     const postObject = 
 
     // Ajout AVEC Image //
@@ -63,7 +65,7 @@ exports.createPost = (req, res, next) => {
   }
   catch(error){ 
     res.status(501).json({ message: "format incorrect" })
-  }
+  }*/
   
 };
 

@@ -17,20 +17,25 @@ function WorkTchat(){
 
   useEffect(()=>{
     ////////// Récupération des Posts ///////////
-    fetch('http://localhost:5500/api/posts/', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${profil.token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-    .then((res) => res.json())
-    .then((resJson) => {
-      setPosts(resJson)
-      localStorage.setItem('posts', JSON.stringify(resJson))
-    })
-    .catch((error) => console.log(error))
+    setInterval(() => {
+
+      fetch('http://localhost:5500/api/posts/', {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${profil.token}`,
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      })
+
+      .then((res) => res.json())
+      .then((resJson) => {
+        setPosts(resJson)
+        localStorage.setItem('posts', JSON.stringify(resJson))
+      })
+      .catch((error) => console.log(error))
+
+    }, 3000);
     
   },[]);
 
@@ -48,7 +53,6 @@ function WorkTchat(){
 
     }
   })
-
 
   //////////// Génération de chaque post ///////////
   return (
@@ -73,6 +77,7 @@ function WorkTchat(){
 
     </div>
   )
+
 }
 
     

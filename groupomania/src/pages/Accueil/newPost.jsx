@@ -1,81 +1,104 @@
 import { useState } from "react";
+import axios from "axios";
 
-////////// Création et envoi d'un post //////////
-const author = sessionStorage.getItem('name');
-const profil = JSON.parse(sessionStorage.getItem('profil'))
-
-
-
-function NewPost() {
-    const [text, setText] = useState('');
-    const [file, setFile] = useState();
+////// NON utilisé ////////
     //const [picture, setPicture] = useState(null);
 
-    const handlePicture = (e) => {
+
+    /*const handlePicture = (e) => {
       //setPicture(URL.createObjectURL(e.target.files[0]));
       setFile(e.target.files[0]);
-    };
-    //console.log(picture);
-    console.log(file);
-    
+    };*/
+
+
+    //let FormData = require('form-data');
+//////////////////////////
+
+////////// Création et envoi d'un post //////////
+
+function NewPost() {
+
+  /////  Récupération du profil   //
+    const profil = JSON.parse(sessionStorage.getItem('profil'))
+
+  /////  Récupération du nom de l'autheur  //
+    const author = sessionStorage.getItem('name');
+
+  /////  Gestion text  //
+    const [text, setText] = useState();
+
+  ////   Gestion fichier image //
+    const [file, setFile] = useState();
+
+  ////   Gestion Date
+    const date = new Date().toLocaleDateString()
+
+  ////   Gestion Heure  //
+    const time = new Date().toLocaleTimeString()
+
+
+  ////   Création du FormData  //
+    let data = new FormData()
+      data.append("author", author)
+      data.append("text" , text)
+      data.append("file", file)
+      data.append("date", date)
+      data.append("time", time)
+
 
     const CreatePost = (e) => {
       e.preventDefault();
 
-      let now = new Date()
-      const date = now.toLocaleDateString()
-      const time = now.toLocaleTimeString()
+      /*return axios({
+        method: "POST",
+        url: "http://localhost:5500/api/posts/",
+        data: data,
+        headers: {
+          'Authorization': `Bearer ${profil.token}`,
+          'Content-Type': 'multipart/form-data'},
+      })*/
 
-      /*const formData = new FormData()
-      formData.append("author", author )
-      formData.append("text" , text)
-      formData.append("date", date)
-      formData.append("time", time)
-      formData.append("file", file)*/
-
-     
-
-      fetch('http://localhost:5500/api/posts/', {
+      return fetch('http://localhost:5500/api/posts/', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${profil.token}`,
-          'Accept': 'application/json',
-          'Content-Type': 'application/json' /* 'multipart/form-data'*/,
+          'Accept': '*/*', //'multipart/form-data',
+          'Content-Type': '*/*', // /*'application/json',*/ 'multipart/form-data; boundary=something',
         },
-        
-        //body: formData
-        body: JSON.stringify({author, text, date, time, file}),
+        body: data
+        //body: JSON.stringify({author, text, date, time, file}),
       })
-        .then((res) => res.json())
 
-        .then((resJson) => {
-          console.log(resJson);    
-          console.log({author, text, file});
-          //console.log(formData);
-          //window.location.reload()
-        })
+      .then((res) => res.json())
 
-        .catch((error) => {
-          console.log(error);
-          console.log({author, text, file});
-          //console.log(formData);
-        });
+      .then((resJson) => {
+        console.log(resJson);  
+        console.log(...data);
+        //window.location.reload()
+      })
+
+      .catch((error) => {
+        console.log(error);
+      });
     };
 
     const Reinitialiser = () =>{
-      setText('')
       setFile(null)
+      document.getElementById("createPostPicture").value = null
+
+      setText(null)
+      document.getElementById("createPostContenu").value = null
     }
 
     return (
-      <form id="createPost"  method="post" encType='multipart/form-data' onSubmit={CreatePost}>
+      <form id="createPost">
         <label htmlFor="createPostPicture">Image</label>
         <br />
         <input
           type="file"
           name="createPostPicture"
           id="createPostPicture"
-          onChange={(e) => handlePicture(e)}
+          onChange={(e) => setFile(e.target.files[0])}
         />
 
         <br />
@@ -87,14 +110,13 @@ function NewPost() {
           id="createPostContenu"
           placeholder="écrivez votre message"
           onChange={(e) => setText(e.target.value)}
-          value={text}
         ></textarea>
 
         <br />
         
         <div id="createPostInteractions">
-          <input id="createPostInteractionsSubmit" type="submit" value="Envoyer le post" />
-          <button id="createPostInteractionsNull" type="button" onClick={() =>{Reinitialiser()}}>Réinitialiser</button>
+          <button id="createPostInteractionsSubmit" type="button" onClick={CreatePost}>Envoyer le post</button>
+          <button id="createPostInteractionsNull" type="button" onClick={()=>{Reinitialiser()}}>Réinitialiser</button>
         </div>
         
       </form>
