@@ -8,6 +8,9 @@ const mongoose = require('mongoose');
 
 const path = require('path');
 
+const fileupload = require('express-fileupload');
+
+const cors = require('cors');
 
 const postRoutes = require('./routes/post');
 
@@ -21,9 +24,12 @@ mongoose.connect('mongodb+srv://MurderSmile:DeathLaugh@cluster13.wdfny.mongodb.n
     .then(() => console.log('Connexion à MongoDB réussie !'))
     .catch(() => console.log('Connexion à MongoDB échouée !'));
 
-app.use(express.json());
-
-//app.use(cors());
+  app.use(
+    fileupload({createParentPath: true,}),
+  );
+  app.use(cors());
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
 
 // Autorisation CORS //
 app.use((req, res, next) => {

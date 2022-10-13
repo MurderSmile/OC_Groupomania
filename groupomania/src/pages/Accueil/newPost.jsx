@@ -1,4 +1,5 @@
 import { useState } from "react";
+import FormData from 'form-data';
 import axios from "axios";
 
 ////// NON utilisé ////////
@@ -46,40 +47,44 @@ function NewPost() {
       data.append("time", time)
 
 
-    const CreatePost = (e) => {
-      e.preventDefault();
+    const CreatePost = () => {
+      //e.preventDefault();
 
-      /*return axios({
+      axios({
         method: "POST",
-        url: "http://localhost:5500/api/posts/",
-        data: data,
+        url:'http://localhost:5500/api/posts/',
         headers: {
-          'Authorization': `Bearer ${profil.token}`,
-          'Content-Type': 'multipart/form-data'},
-      })*/
-
-      return fetch('http://localhost:5500/api/posts/', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${profil.token}`,
-          'Accept': '*/*', //'multipart/form-data',
-          'Content-Type': '*/*', // /*'application/json',*/ 'multipart/form-data; boundary=something',
+          "Authorization": `Bearer ${profil.token}`,
+          "Accept" : "multipart/form-data",//; boundary=something",
+          "Content-type" : "multipart/form-data; boundary=something",
         },
-        body: data
-        //body: JSON.stringify({author, text, date, time, file}),
+        data: data
       })
 
-      .then((res) => res.json())
+      // return fetch('http://localhost:5500/api/posts/', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Authorization': `Bearer ${profil.token}`,
+      //     'Accept': 'multipart/form-data',
+      //     'Content-Type': 'multipart/form-data; boundary=something', // /*'application/json',*/ 
+      //   },
+      //   body: data
+      //   //body: JSON.stringify({author, text, date, time, file}),
+      // })
 
-      .then((resJson) => {
-        console.log(resJson);  
-        console.log(...data);
-        //window.location.reload()
-      })
+      //.then((res) => res.json())
 
-      .catch((error) => {
-        console.log(error);
-      });
+      .then((res) => console.log(res))
+
+      // .then((resJson) => {
+      //   console.log(resJson);  
+      //   console.log(...data);
+      //   //window.location.reload()
+      // })
+
+      // .catch((error) => {
+      //   console.log(error);
+      // });
     };
 
     const Reinitialiser = () =>{
@@ -115,7 +120,7 @@ function NewPost() {
         <br />
         
         <div id="createPostInteractions">
-          <button id="createPostInteractionsSubmit" type="button" onClick={CreatePost}>Envoyer le post</button>
+          <button id="createPostInteractionsSubmit" type="button" onClick={()=>{CreatePost()}}>Envoyer le post</button>
           <button id="createPostInteractionsNull" type="button" onClick={()=>{Reinitialiser()}}>Réinitialiser</button>
         </div>
         

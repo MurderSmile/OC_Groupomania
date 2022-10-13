@@ -31,11 +31,11 @@ const { json } = require('express');
 // Ajout d'une nouvelle post //
 exports.createPost = (req, res, next) => {
   
-  res.status(200).json({ message:'Backend ateint !'})
-  console.log(req.body)
+  // res.status(200).json({ message:'createPost ateint !'})
+  // console.log(req.body);
 
 
-  /*try {
+  try {
     const postObject = 
 
     // Ajout AVEC Image //
@@ -65,7 +65,7 @@ exports.createPost = (req, res, next) => {
   }
   catch(error){ 
     res.status(501).json({ message: "format incorrect" })
-  }*/
+  }
   
 };
 
