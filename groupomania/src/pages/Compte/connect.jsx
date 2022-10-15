@@ -19,9 +19,11 @@ function Connect() {
 
       .then((resJson) => {
         if (resJson.message !== 'Paire login/mot de passe incorrecte') {
-          sessionStorage.setItem('name', email)
           sessionStorage.setItem('profil', JSON.stringify(resJson)); 
           window.location.href = './accueil';
+        }
+        else {
+          alert(resJson.message)
         }
       })
 

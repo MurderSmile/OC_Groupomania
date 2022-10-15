@@ -1,5 +1,5 @@
 import { useState } from "react";
-import FormData from 'form-data';
+//import FormData from 'form-data';
 import axios from "axios";
 
 ////// NON utilisé ////////
@@ -20,27 +20,24 @@ import axios from "axios";
 function NewPost() {
 
   /////  Récupération du profil   //
-    const profil = JSON.parse(sessionStorage.getItem('profil'))
-
-  /////  Récupération du nom de l'autheur  //
-    const author = sessionStorage.getItem('name');
+  const profil = JSON.parse(sessionStorage.getItem('profil'))
 
   /////  Gestion text  //
-    const [text, setText] = useState();
+  const [text, setText] = useState();
 
   ////   Gestion fichier image //
-    const [file, setFile] = useState();
+  const [file, setFile] = useState();
 
   ////   Gestion Date
-    const date = new Date().toLocaleDateString()
+  const date = new Date().toLocaleDateString()
 
   ////   Gestion Heure  //
-    const time = new Date().toLocaleTimeString()
+  const time = new Date().toLocaleTimeString()
 
 
   ////   Création du FormData  //
-    let data = new FormData()
-      data.append("author", author)
+    const data = new FormData()
+      data.append("author", profil.name)
       data.append("text" , text)
       data.append("file", file)
       data.append("date", date)
@@ -55,26 +52,26 @@ function NewPost() {
         url:'http://localhost:5500/api/posts/',
         headers: {
           "Authorization": `Bearer ${profil.token}`,
-          "Accept" : "multipart/form-data",//; boundary=something",
-          "Content-type" : "multipart/form-data; boundary=something",
+          // "Accept" : "multipart/form-data",//; boundary=something",
+          // "Content-type" : "multipart/form-data; boundary=something",
         },
         data: data
       })
 
-      // return fetch('http://localhost:5500/api/posts/', {
+      .then((res) => console.log(res))
+
+
+      // fetch('http://localhost:5500/api/posts/', {
       //   method: 'POST',
       //   headers: {
       //     'Authorization': `Bearer ${profil.token}`,
-      //     'Accept': 'multipart/form-data',
-      //     'Content-Type': 'multipart/form-data; boundary=something', // /*'application/json',*/ 
+      //     //'Accept': 'multipart/form-data',
+      //     //'Content-Type': 'multipart/form-data', 
       //   },
       //   body: data
-      //   //body: JSON.stringify({author, text, date, time, file}),
       // })
 
-      //.then((res) => res.json())
-
-      .then((res) => console.log(res))
+      // .then((res) => res.json())
 
       // .then((resJson) => {
       //   console.log(resJson);  

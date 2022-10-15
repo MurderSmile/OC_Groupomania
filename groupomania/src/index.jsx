@@ -15,14 +15,36 @@ import { IdProvider } from './utils/context';
 
 function Identification() {
   const profil = JSON.parse(sessionStorage.getItem('profil'))
+  const posts = JSON.parse(localStorage.getItem('posts'))
 
   if (!profil) {
+
+    sessionStorage.clear()
+    localStorage.clear();
+
     return (
       <Routes>
         <Route path="*" element={<Compte />} />
       </Routes>
     );
-  } else {
+
+  } 
+
+  else if (posts && posts.error && posts.error.name === 'TokenExpiredError'){
+    
+    alert("Vôtre token vient d'expirer, veuillez vous reconnecter") 
+    sessionStorage.clear()
+    localStorage.clear()
+    window.location.reload();
+
+    return (
+      <Routes>
+        <Route path="*" element={<Compte />} />
+      </Routes>
+    );
+  }
+  
+  else {
     return (
       <Routes>
         <Route path="/" element={<Compte />} />

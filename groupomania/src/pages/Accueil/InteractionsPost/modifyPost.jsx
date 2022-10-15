@@ -4,12 +4,24 @@ import { IdContext } from "../../../utils/context";
 
 //////////////////// Modification d'un Post //////////////////////////
 function ModifyPost() {
+
+  /////  Récupération du profil   //
   const profil = JSON.parse(sessionStorage.getItem('profil'))
+
+  /////  Récupération de l'Id du post   //
   const {idPost, setIdPost} = useContext(IdContext)
 
-  const [text, setText] = useState('');
-  const [fileImage, setFileImage] = useState('');
-  
+  /////  Gestion text  //
+  const [text, setText] = useState()
+
+  ////   Gestion fichier image //
+  const [file, setFile] = useState();
+
+  ////   Création du FormData  //
+  const data = new FormData()
+    data.append("text" , text)
+    data.append("file", file)
+    data.append("admin", profil.admin)
 
   /////////////////// récupération de l'api du post cible //////////
   useEffect(()=>{
@@ -25,39 +37,35 @@ function ModifyPost() {
     .then((res) => res.json())
     .then((resJson) => {
       setText(resJson.text)
-      setFileImage(resJson.imageUrl)
+      setFile(resJson.imageUrl)
     })
     .catch((error) => console.log(error))
           
   },[idPost, profil.token]);
 
-  /////////////////// envoi de la modification du post /////////////
-  const ModifyOnePost = (e) =>{
-    e.preventDefault();
 
-    const imageUrl = fileImage
+
+  /////////////////// envoi de la modification du post /////////////
+  const ModifyOnePost = () =>{
+    //e.preventDefault();
     
-    return fetch(`http://localhost:5500/api/posts/${idPost}`, {
+    fetch(`http://localhost:5500/api/posts/${idPost}`, {
       method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${profil.token}`,
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ text, imageUrl, admin:profil.admin }),
+      headers: {Authorization: `Bearer ${profil.token}`},
+      body: data,
     })
-      .then((res) => res.json())
-      .then((resJson) => {
-        console.log(resJson.message)
-      })
-      .catch((error) => console.log(error))
+    .then((res) => res.json())
+    .then((resJson) => {
+      console.log(resJson.message)
+    })
+    .catch((error) => console.log(error))
 
   }
 
   
   /////////////////// formulaire de modification du post ///////////
   return (
-    <form id="modifPost" onSubmit={ModifyOnePost}>
+    <form id="modifPost">
 
       <label htmlFor="modifPostPicture">Image</label>
       <br />
@@ -65,8 +73,8 @@ function ModifyPost() {
         type="file"
         name="modifPostPicture"
         id="modifPostPicture"
-        onChange={(e) => setFileImage(e.target.value)}
-        value={fileImage || ''}
+        onChange={(e) => setFile(e.target.files[0])}
+        value={file || ''}
       />
   
       <br />
@@ -84,7 +92,7 @@ function ModifyPost() {
       <br />
       
       <div id="modifPostInteractions">
-        <input id="modifPostInteractionsSubmit" type="submit" value="Modifier le post" />
+        <button id="modifPostInteractionsSubmit" type="button" onClick={() =>{ModifyOnePost()}}>Modifier le post</button>
         <button id="modifPostInteractionsNull" type="button" onClick={() =>{setIdPost(null)}}>Annuler</button>
       </div>
 

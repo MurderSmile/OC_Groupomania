@@ -15,19 +15,21 @@ function Create() {
       },
       body: JSON.stringify({ email, password }),
     })
-      .then((res) => res.json())
+    .then((res) => res.json())
 
-      .then((resJson) => {
-        if (resJson.message === 'Utilisateur créé !') {
-          sessionStorage.setItem('name', email)
-          sessionStorage.setItem('profil', JSON.stringify(resJson)); 
-          window.location.href = './accueil';
-        }
-      })
+    .then((resJson) => {
+      if (resJson.message === 'Utilisateur créé !') {
+        sessionStorage.setItem('profil', JSON.stringify(resJson)); 
+        window.location.href = './accueil';
+      }
+      else {
+        alert("Erreur: Vérifier que l'utilisateur n'existe pas déja")
+      }
+    })
 
-      .catch((error) => {
-        console.log(error);
-      });
+    .catch((error) => {
+      console.log(error);
+    });
   };
 
   return (

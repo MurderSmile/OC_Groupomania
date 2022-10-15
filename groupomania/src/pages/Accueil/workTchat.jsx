@@ -6,7 +6,6 @@ import { IdContext } from '../../utils/context';
 import LikePost from './InteractionsPost/likePost';
 import DeletePost from './InteractionsPost/deletePost';
 
-const author = sessionStorage.getItem('name');
 const profil = JSON.parse(sessionStorage.getItem('profil'))
 
 ////////////////// Génération des posts //////////////////
@@ -17,7 +16,7 @@ function WorkTchat(){
 
   useEffect(()=>{
     ////////// Récupération des Posts ///////////
-    setInterval(() => {
+    //setInterval(() => {
 
       fetch('http://localhost:5500/api/posts/', {
         method: 'GET',
@@ -35,7 +34,7 @@ function WorkTchat(){
       })
       .catch((error) => console.log(error))
 
-    }, 3000);
+    //}, 3000);
     
   },[]);
 
@@ -67,9 +66,9 @@ function WorkTchat(){
         <div className="postDate"> <span>Créer le : {post.date}</span><span>à {post.time}</span> </div>
 
         <div className="postInteraction">
-          {author === post.author || profil.admin ? (<button onClick={() => {setIdPost(post._id)}}> <a href="#modifPost">Modifier</a> </button>) : null }
+          {profil.name === post.author || profil.admin ? (<button onClick={() => {setIdPost(post._id)}}> <a href="#modifPost">Modifier</a> </button>) : null }
           <LikePost post = {post} /> 
-          {author === post.author || profil.admin ? <DeletePost post = {post} /> : null }
+          {profil.name === post.author || profil.admin ? <DeletePost post = {post} /> : null }
         </div>
       </div>
     

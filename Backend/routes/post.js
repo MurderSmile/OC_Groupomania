@@ -13,7 +13,7 @@ const postControl = require('../controllers/post')
 router.post('/', auth, /*multer,*/ postControl.createPost);
   
 // Changer un post //
-router.put('/:id', auth, multer, postControl.modifyPost);
+router.put('/:id', auth, /*multer,*/ postControl.modifyPost);
   
 // Supprimer un post //
 router.delete('/:id', auth, postControl.supprimPost);
