@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 
 const path = require('path');
 
-const fileupload = require('express-fileupload');
+//const fileupload = require('express-fileupload');
 
 const cors = require('cors');
 
@@ -25,7 +25,7 @@ mongoose.connect('mongodb+srv://MurderSmile:DeathLaugh@cluster13.wdfny.mongodb.n
     .catch(() => console.log('Connexion à MongoDB échouée !'));
 
 
-  app.use(fileupload({createParentPath: true,}));
+  //app.use(fileupload({createParentPath: true,}));
   app.use(cors());
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));

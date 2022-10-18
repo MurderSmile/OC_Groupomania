@@ -32,7 +32,7 @@ const { json } = require('express');
 exports.createPost = (req, res, next) => {
   
   // res.status(200).json({ message:'createPost ateint !'})
-  // console.log(req.body);
+  console.log(req);
 
 
   try {
@@ -40,7 +40,8 @@ exports.createPost = (req, res, next) => {
 
     // Ajout AVEC Image //
     req.file ? {
-      ...JSON.parse(req.body.post),
+      //...JSON.parse(req.body.post),
+      ...req.body,
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } 
 
@@ -76,7 +77,8 @@ exports.modifyPost = (req, res, next) => {
 
   // Modification AVEC Image //
   req.file ? {
-    ...JSON.parse(req.body.post),
+    //...JSON.parse(req.body.post),
+    ...req.body,
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   } 
 

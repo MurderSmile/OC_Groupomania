@@ -9,6 +9,7 @@ const MIME_TYPES = {
 // Gestion des fichiers images dans le répertoire 'images' //
 
 const storage = multer.diskStorage({
+
   destination: (req, file, callback) => {
     callback(null, 'images');
   },
@@ -17,8 +18,9 @@ const storage = multer.diskStorage({
     const extension = MIME_TYPES[file.mimetype];
     callback(null, name + Date.now() + '.' + extension);
   }
+
 })
 
 
 
-module.exports = multer({storage: storage}).single('image');
+module.exports = multer({storage: storage}).single('fileImage');

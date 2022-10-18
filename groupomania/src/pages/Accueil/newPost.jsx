@@ -1,19 +1,4 @@
 import { useState } from "react";
-//import FormData from 'form-data';
-import axios from "axios";
-
-////// NON utilisé ////////
-    //const [picture, setPicture] = useState(null);
-
-
-    /*const handlePicture = (e) => {
-      //setPicture(URL.createObjectURL(e.target.files[0]));
-      setFile(e.target.files[0]);
-    };*/
-
-
-    //let FormData = require('form-data');
-//////////////////////////
 
 ////////// Création et envoi d'un post //////////
 
@@ -39,50 +24,30 @@ function NewPost() {
     const data = new FormData()
       data.append("author", profil.name)
       data.append("text" , text)
-      data.append("file", file)
+      data.append("fileImage", file)
       data.append("date", date)
       data.append("time", time)
 
 
     const CreatePost = () => {
-      //e.preventDefault();
-
-      axios({
-        method: "POST",
-        url:'http://localhost:5500/api/posts/',
-        headers: {
-          "Authorization": `Bearer ${profil.token}`,
-          // "Accept" : "multipart/form-data",//; boundary=something",
-          // "Content-type" : "multipart/form-data; boundary=something",
-        },
-        data: data
+       
+      fetch('http://localhost:5500/api/posts/', {
+        method: 'POST',
+        headers: {'Authorization': `Bearer ${profil.token}`,},
+        body: data
       })
 
-      .then((res) => console.log(res))
+      .then((res) => res.json())
 
+      .then((resJson) => {
+        window.location.reload()
+      })
 
-      // fetch('http://localhost:5500/api/posts/', {
-      //   method: 'POST',
-      //   headers: {
-      //     'Authorization': `Bearer ${profil.token}`,
-      //     //'Accept': 'multipart/form-data',
-      //     //'Content-Type': 'multipart/form-data', 
-      //   },
-      //   body: data
-      // })
-
-      // .then((res) => res.json())
-
-      // .then((resJson) => {
-      //   console.log(resJson);  
-      //   console.log(...data);
-      //   //window.location.reload()
-      // })
-
-      // .catch((error) => {
-      //   console.log(error);
-      // });
+      .catch((error) => {
+        console.log(error);
+      });
     };
+
 
     const Reinitialiser = () =>{
       setFile(null)
@@ -91,6 +56,7 @@ function NewPost() {
       setText(null)
       document.getElementById("createPostContenu").value = null
     }
+    
 
     return (
       <form id="createPost">

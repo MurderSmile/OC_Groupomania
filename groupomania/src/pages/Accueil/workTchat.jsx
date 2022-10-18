@@ -1,6 +1,5 @@
-/* eslint-disable array-callback-return */
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import '../../utils/styles/css/index.css';
-//import DefaultPicture from '../../assets/656510.jpg';
 import { useState, useEffect, useContext } from 'react';
 import { IdContext } from '../../utils/context';
 import LikePost from './InteractionsPost/likePost';
@@ -10,13 +9,12 @@ const profil = JSON.parse(sessionStorage.getItem('profil'))
 
 ////////////////// Génération des posts //////////////////
 function WorkTchat(){ 
-  const localPosts = JSON.parse(localStorage.getItem('posts'))
-  const [posts, setPosts] = useState(localPosts ? localPosts : [])  
+  //const localPosts = JSON.parse(localStorage.getItem('posts'))
+  const [posts, setPosts] = useState([])  
   const {setIdPost} = useContext(IdContext)
 
   useEffect(()=>{
     ////////// Récupération des Posts ///////////
-    //setInterval(() => {
 
       fetch('http://localhost:5500/api/posts/', {
         method: 'GET',
@@ -30,16 +28,16 @@ function WorkTchat(){
       .then((res) => res.json())
       .then((resJson) => {
         setPosts(resJson)
-        localStorage.setItem('posts', JSON.stringify(resJson))
+        //localStorage.setItem('posts', JSON.stringify(resJson))
       })
       .catch((error) => console.log(error))
-
-    //}, 3000);
     
   },[]);
 
 
   ////// Classement par ordre chronologique ///////
+
+  // eslint-disable-next-line array-callback-return
   posts.sort((a, b) => {
 
     if (a.date < b.date) return 1
@@ -51,6 +49,7 @@ function WorkTchat(){
       if (a.time > b.time) return -1
 
     }
+
   })
 
   //////////// Génération de chaque post ///////////
@@ -61,7 +60,7 @@ function WorkTchat(){
      
       <div className="post" key={post._id}>
         <span>{post.author}</span>
-        <img className="postPicture" src={post.imageUrl} alt="" />
+        <img className="postPicture" src={post.imageUrl} alt="image du post" />
         <div className="postContent">{post.text}</div>
         <div className="postDate"> <span>Créer le : {post.date}</span><span>à {post.time}</span> </div>
 
