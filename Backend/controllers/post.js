@@ -2,37 +2,9 @@ const Post = require('../models/post')
 const fs = require('fs');
 const { json } = require('express');
 
-/*exports.createPost = async (req, res) => {
-  let picture = "";
-  console.log(req.body);
-
-  if (req.file !== undefined)
-    picture = `${req.protocol}://${req.get("host")}/images/${
-      req.file.filename
-    }`;
-
-  const newPost = new Post({
-    userId: req.body.userId,
-    imageUrl: picture,
-    date: req.body.date,
-    time: req.body.time,
-    author: req.body.author,
-    text: req.body.text,
-  });
-
-  try {
-    const post = await newPost.save();
-    return res.status(201).json(post);
-  } catch (err) {
-    return res.status(400).send(err);
-  }
-};*/
 
 // Ajout d'une nouvelle post //
 exports.createPost = (req, res, next) => {
-  
-  // res.status(200).json({ message:'createPost ateint !'})
-  console.log(req);
 
 
   try {
@@ -59,8 +31,7 @@ exports.createPost = (req, res, next) => {
     })
   
     post.save()
-      //.then(() => res.status(201).json({ message: 'Objet enregistré !'}))
-      .then(() => res.status(201).json({ message: req.body}))
+      .then(() => res.status(201).json({ message: 'Objet enregistré !'}))
       .catch(error => res.status(400).json({error}))
   
   }
@@ -96,9 +67,23 @@ exports.modifyPost = (req, res, next) => {
       } 
 
       else {
-        Post.updateOne({ _id: req.params.id}, { ...postObject, _id: req.params.id})
-          .then(() => res.status(200).json({message : 'Post modifié!'}))
-          .catch(error => res.status(401).json({ error }))
+
+        if (req.file && post.imageUrl) {
+          const filename = post.imageUrl.split('/images/')[1]
+          fs.unlink(`images/${filename}`, () => {
+
+            Post.updateOne({ _id: req.params.id}, { ...postObject, _id: req.params.id})
+              .then(() => res.status(200).json({message : 'Post modifié!'}))
+              .catch(error => res.status(401).json({ error }))
+
+          })
+        }
+
+        else {
+          Post.updateOne({ _id: req.params.id}, { ...postObject, _id: req.params.id})
+            .then(() => res.status(200).json({message : 'Post modifié!'}))
+            .catch(error => res.status(401).json({ error }))
+        }
 
       }
 

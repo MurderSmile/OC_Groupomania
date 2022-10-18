@@ -50,10 +50,10 @@ function NewPost() {
 
 
     const Reinitialiser = () =>{
-      setFile(null)
+      setFile(undefined)
       document.getElementById("createPostPicture").value = null
 
-      setText(null)
+      setText(undefined)
       document.getElementById("createPostContenu").value = null
     }
     
@@ -83,7 +83,10 @@ function NewPost() {
         <br />
         
         <div id="createPostInteractions">
-          <button id="createPostInteractionsSubmit" type="button" onClick={()=>{CreatePost()}}>Envoyer le post</button>
+          {text === '' || text === undefined
+            ? <button id="createPostInteractionsSubmitInvalid" type="button">Envoyer le post</button>
+            : <button id="createPostInteractionsSubmit" type="button" onClick={()=>{CreatePost()}}>Envoyer le post</button> 
+          }
           <button id="createPostInteractionsNull" type="button" onClick={()=>{Reinitialiser()}}>Réinitialiser</button>
         </div>
         

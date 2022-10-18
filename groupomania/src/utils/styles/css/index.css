@@ -140,6 +140,16 @@ footer {
   margin: 5px;
   cursor: pointer;
 }
+#createPostInteractionsSubmitInvalid, #createPostInteractionsNullInvalid, #modifPostInteractionsSubmitInvalid, #modifPostInteractionsNullInvalid {
+  border: none;
+  justify-content: center;
+  font-weight: bold;
+  background-color: white;
+  color: #666666;
+  border-radius: 50px;
+  margin: 5px;
+  cursor: pointer;
+}
 @media screen and (max-width: 600px) {
   #createPostInteractionsSubmit, #createPostInteractionsNull, #modifPostInteractionsSubmit, #modifPostInteractionsNull {
     padding: 5px;

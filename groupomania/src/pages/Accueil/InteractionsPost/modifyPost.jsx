@@ -15,8 +15,7 @@ function ModifyPost() {
   const [text, setText] = useState()
 
   ////   Gestion fichier image //
-  const [file, setFile] = useState();
-  console.log(file);
+  const [file, setFile] = useState()
 
   ////   Création du FormData  //
   const data = new FormData()
@@ -38,7 +37,7 @@ function ModifyPost() {
     .then((res) => res.json())
     .then((resJson) => {
       setText(resJson.text)
-      setFile(URL.createObjectURL(resJson.imageUrl))
+      //setFile(resJson.imageUrl)
     })
     .catch((error) => console.log(error))
           
@@ -48,16 +47,18 @@ function ModifyPost() {
 
   /////////////////// envoi de la modification du post /////////////
   const ModifyOnePost = () =>{
-    //e.preventDefault();
+ 
     fetch(`http://localhost:5500/api/posts/${idPost}`, {
       method: 'PUT',
       headers: {Authorization: `Bearer ${profil.token}`},
       body: data,
     })
     .then((res) => res.json())
+
     .then((resJson) => {
-      console.log(resJson.message)
+      window.location.reload()
     })
+
     .catch((error) => console.log(error))
 
   }
@@ -74,7 +75,6 @@ function ModifyPost() {
         name="modifPostPicture"
         id="modifPostPicture"
         onChange={(e) => setFile(e.target.files[0])}
-        value={file || ''}
       />
   
       <br />

@@ -23,9 +23,7 @@ function LikePost(props){
     .then((res) => res.json())
 
     .then((resJson) => {
-
-      console.log(resJson)
-      console.log(props.post.usersLiked);
+      
       setLike(like === 1 ? 0 : 1)
       setLikes(like === 1 ? likes +1 : likes -1)
     })

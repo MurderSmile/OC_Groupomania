@@ -63,6 +63,16 @@
       border-radius: 50px;
       margin: 5px;
       cursor: pointer;
+      &Invalid {
+        border: none;
+        justify-content: center;
+        font-weight: bold;
+        background-color: lighten($color: $secondaire, $amount: 40%);
+        color: lighten($color: black, $amount: 40%);
+        border-radius: 50px;
+        margin: 5px;
+       cursor: pointer;
+      }
       @media screen and (max-width: 600px){
         padding: 5px;
       }

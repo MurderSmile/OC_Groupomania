@@ -5,16 +5,18 @@ import { IdContext } from '../../utils/context';
 import LikePost from './InteractionsPost/likePost';
 import DeletePost from './InteractionsPost/deletePost';
 
-const profil = JSON.parse(sessionStorage.getItem('profil'))
-
 ////////////////// Génération des posts //////////////////
 function WorkTchat(){ 
-  //const localPosts = JSON.parse(localStorage.getItem('posts'))
+  
+  const profil = JSON.parse(sessionStorage.getItem('profil'))
   const [posts, setPosts] = useState([])  
+  const [wait, setWait] = useState(true)
   const {setIdPost} = useContext(IdContext)
+  
 
   useEffect(()=>{
     ////////// Récupération des Posts ///////////
+    setWait(true)
 
       fetch('http://localhost:5500/api/posts/', {
         method: 'GET',
@@ -28,11 +30,12 @@ function WorkTchat(){
       .then((res) => res.json())
       .then((resJson) => {
         setPosts(resJson)
-        //localStorage.setItem('posts', JSON.stringify(resJson))
+        localStorage.setItem('posts', JSON.stringify(resJson))
+        setWait(false)
       })
       .catch((error) => console.log(error))
     
-  },[]);
+  },[profil.token]);
 
 
   ////// Classement par ordre chronologique ///////
@@ -52,29 +55,38 @@ function WorkTchat(){
 
   })
 
+  //////////// Chargement des posts ///////////
+  if(wait){
+    return (
+      <div id='download'>Chargement en cours...</div>
+    )
+  }
+
   //////////// Génération de chaque post ///////////
-  return (
-    <div id="postList">
-
-    {posts.map((post) => 
-     
-      <div className="post" key={post._id}>
-        <span>{post.author}</span>
-        <img className="postPicture" src={post.imageUrl} alt="image du post" />
-        <div className="postContent">{post.text}</div>
-        <div className="postDate"> <span>Créer le : {post.date}</span><span>à {post.time}</span> </div>
-
-        <div className="postInteraction">
-          {profil.name === post.author || profil.admin ? (<button onClick={() => {setIdPost(post._id)}}> <a href="#modifPost">Modifier</a> </button>) : null }
-          <LikePost post = {post} /> 
-          {profil.name === post.author || profil.admin ? <DeletePost post = {post} /> : null }
+  else{
+    return (
+      <div id="postList">
+  
+      {posts.map((post) => 
+       
+        <div className="post" key={post._id}>
+          <span>{post.author}</span>
+          {post.imageUrl && <img className="postPicture" src={post.imageUrl} alt="image du post" />}
+          <div className="postContent">{post.text}</div>
+          <div className="postDate"> <span>Créer le {post.date} à {post.time}</span> </div>
+  
+          <div className="postInteraction">
+            {profil.name === post.author || profil.admin ? (<button onClick={() => {setIdPost(post._id)}}> <a href="#modifPost">Modifier</a> </button>) : null }
+            <LikePost post = {post} /> 
+            {profil.name === post.author || profil.admin ? <DeletePost post = {post} /> : null }
+          </div>
         </div>
+      
+      )}
+  
       </div>
-    
-    )}
-
-    </div>
-  )
+    )
+  }
 
 }
 
