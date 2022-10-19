@@ -68,10 +68,10 @@ function ModifyPost() {
   return (
     <form id="modifPost">
 
-      <label htmlFor="modifPostPicture">Image</label>
+      <label htmlFor="modifPostPicture">Ajouter / Modifier l'image</label>
       <br />
       <input
-        type="file"
+        type="file" accept="image/*"
         name="modifPostPicture"
         id="modifPostPicture"
         onChange={(e) => setFile(e.target.files[0])}
@@ -79,7 +79,7 @@ function ModifyPost() {
   
       <br />
   
-      <label htmlFor="modifPostContenu">Contenu</label>
+      <label htmlFor="modifPostContenu">Contenu*</label>
       <br />
       <textarea
         name="modifPostContenu"
@@ -92,7 +92,10 @@ function ModifyPost() {
       <br />
       
       <div id="modifPostInteractions">
-        <button id="modifPostInteractionsSubmit" type="button" onClick={() =>{ModifyOnePost()}}>Modifier le post</button>
+        {text === '' || text === undefined
+          ? <button id="modifPostInteractionsSubmitInvalid" type="button">Modifier le post</button>
+          : <button id="modifPostInteractionsSubmit" type="button" onClick={() =>{ModifyOnePost()}}>Modifier le post</button>
+        }
         <button id="modifPostInteractionsNull" type="button" onClick={() =>{setIdPost(null)}}>Annuler</button>
       </div>
 

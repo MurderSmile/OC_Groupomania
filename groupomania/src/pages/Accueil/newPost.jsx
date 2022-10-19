@@ -60,10 +60,10 @@ function NewPost() {
 
     return (
       <form id="createPost">
-        <label htmlFor="createPostPicture">Image</label>
+        <label htmlFor="createPostPicture">Ajouter une Image</label>
         <br />
         <input
-          type="file"
+          type="file" accept="image/*"
           name="createPostPicture"
           id="createPostPicture"
           onChange={(e) => setFile(e.target.files[0])}
@@ -71,7 +71,7 @@ function NewPost() {
 
         <br />
 
-        <label htmlFor="createPostContenu">Contenu</label>
+        <label htmlFor="createPostContenu">Contenu*</label>
         <br />
         <textarea
           name="createPostContenu"
