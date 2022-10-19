@@ -1,5 +1,12 @@
 # Groupomania
 
+## Langages utilisés:
+  * REACT 
+  * SCSS
+  * JavaScript
+  * CSS
+  * HTML
+
 ## Pour lancer le projet:
 
   1- Depuis le dossier Groupomania(frontend).
