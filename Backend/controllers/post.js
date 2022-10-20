@@ -3,21 +3,19 @@ const fs = require('fs');
 const { json } = require('express');
 
 
-// Ajout d'une nouvelle post //
+//  Ajout d'un nouveau post  //
 exports.createPost = (req, res, next) => {
-
 
   try {
     const postObject = 
 
-    // Ajout AVEC Image //
+    //  Ajout AVEC Image  //
     req.file ? {
-      //...JSON.parse(req.body.post),
       ...req.body,
       imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
     } 
 
-    // Ajout SANS Image //
+    //  Ajout SANS Image  //
     : { 
       ...req.body 
     }
@@ -41,27 +39,28 @@ exports.createPost = (req, res, next) => {
   
 };
 
-// Changer un post //
+//  Changer un post  //
 exports.modifyPost = (req, res, next) => {
 
   const postObject = 
 
-  // Modification AVEC Image //
+  //  Modification AVEC Image  //
   req.file ? {
-    //...JSON.parse(req.body.post),
     ...req.body,
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
   } 
 
-  // Modification SANS Image //
+  //  Modification SANS Image  //
   : { 
     ...req.body 
   }
 
   delete postObject._userId;
+
   Post.findOne({_id: req.params.id})
     .then((post) => {
 
+      //  Vérification que l'utilisateur est propriétaire du Post ou qu'il est administrateur  //
       if (post.userId != req.auth.userId && !req.body.admin) {
         res.status(401).json({ message : 'Not authorized'})
       } 
@@ -93,12 +92,13 @@ exports.modifyPost = (req, res, next) => {
 
 };
 
-// Supprimer un post //
+//  Supprimer un post  //
 exports.supprimPost = (req, res, next) => {
 
   Post.findOne({ _id: req.params.id})
     .then(post => {
 
+      //  Vérification que l'utilisateur est propriétaire du Post ou qu'il est administrateur  //
       if (post.userId != req.auth.userId && !req.body.admin) {
         res.status(401).json({message: 'Not authorized'})
       } 
@@ -128,7 +128,7 @@ exports.supprimPost = (req, res, next) => {
 
 };
 
-// Afficher un post //
+//  Afficher un post  //
 exports.findOnePost = (req, res, next) => {
 
   Post.findOne({ _id: req.params.id })
@@ -137,7 +137,7 @@ exports.findOnePost = (req, res, next) => {
 
 };
 
-// Afficher tout les posts //
+//  Afficher tout les posts  //
 exports.findAllPosts = (req, res, next) => {
 
   Post.find()
@@ -146,31 +146,27 @@ exports.findAllPosts = (req, res, next) => {
 
 };
 
-// Donner son opinion sur un post //
+//  Donner son opinion sur un post  //
 exports.like = (req, res, next) => {
 
   Post.findOne({ _id: req.params.id })
     .then(post => {
  
-      // Si l'utilisateur n'a pas encore aimé un post //
-      //if(post.usersLiked.indexOf(req.body.userId) == -1) {
-      if(post.usersLiked.indexOf(req.auth.userId) == -1) {
+      //  Si l'utilisateur veut liker  //
+      if(post.usersLiked.indexOf(req.auth.userId) == -1 && req.body.like == 1) {
         
-        // L'utilisateur aime le post //
-        if(req.body.like == 1) { 
-          //post.usersLiked.push(req.body.userId);
-          post.usersLiked.push(req.auth.userId);
-          post.likes += req.body.like;
-        } 
+        post.usersLiked.push(req.auth.userId);
+        post.likes += 1;
 
       }
 
-      // Si l'utilisateur veut annuler son "like"
+      //  Si l'utilisateur veut annuler son "like"  //
       if(post.usersLiked.indexOf(req.auth.userId) != -1 && req.body.like == 0) {
-        //const likesUserIndex = post.usersLiked.findIndex(user => user === req.body.userId)
+
         const likesUserIndex = post.usersLiked.findIndex(user => user === req.auth.userId)
         post.usersLiked.splice(likesUserIndex, 1)
         post.likes -= 1;
+
       }
 
       post.save();

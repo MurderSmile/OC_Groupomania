@@ -6,7 +6,7 @@ import NewPost from './newPost'
 import ModifyPost from './InteractionsPost/modifyPost';
 import WorkTchat from './workTchat';
 
-
+////  Génération de l'Accueil  //
 function Accueil() {
   const {idPost} = useContext(IdContext)
 

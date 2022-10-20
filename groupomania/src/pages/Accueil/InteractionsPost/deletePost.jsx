@@ -1,7 +1,9 @@
-const profil = JSON.parse(sessionStorage.getItem('profil'))
-
+////  suppréssion d'un post  //
 function DeletePost(props) {
 
+  const profil = JSON.parse(sessionStorage.getItem('profil'))
+
+  ////  Envoi de la demande suppréssion  //
   const supprim = () => {
     fetch(`http://localhost:5500/api/posts/${props.post._id}`, {
       method: 'DELETE',
@@ -24,7 +26,7 @@ function DeletePost(props) {
     });
   }
 
-
+  ////  Génération du bouton 'supprimer'  //
   return (
     <button onClick={() => {supprim()}}>
       Supprimer

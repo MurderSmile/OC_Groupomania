@@ -5,17 +5,18 @@ import { IdContext } from '../../utils/context';
 import LikePost from './InteractionsPost/likePost';
 import DeletePost from './InteractionsPost/deletePost';
 
-////////////////// Génération des posts //////////////////
+////  Génération des posts  //
 function WorkTchat(){ 
   
   const profil = JSON.parse(sessionStorage.getItem('profil'))
   const [posts, setPosts] = useState([])  
   const [wait, setWait] = useState(true)
   const {setIdPost} = useContext(IdContext)
-  
 
+  
+  ////  Récupération des Posts  //
   useEffect(()=>{
-    ////////// Récupération des Posts ///////////
+    
     setWait(true)
 
       fetch('http://localhost:5500/api/posts/', {
@@ -38,8 +39,7 @@ function WorkTchat(){
   },[profil.token]);
 
 
-  ////// Classement par ordre chronologique ///////
-
+  ////  Classement par ordre chronologique  //
   // eslint-disable-next-line array-callback-return
   posts.sort((a, b) => {
 
@@ -55,34 +55,36 @@ function WorkTchat(){
 
   })
 
-  //////////// Chargement des posts ///////////
+  ////  Message de chargement  //
   if(wait){
     return (
       <div id='download'>Chargement en cours...</div>
     )
   }
 
-  //////////// Génération de chaque post ///////////
-  else{
+  ////  Génération de chaque post  //
+  else {
     return (
       <div id="postList">
   
-      {posts.map((post) => 
+        {posts.map((post) => 
        
-        <div className="post" key={post._id}>
-          <span>{post.author}</span>
-          {post.imageUrl && <img className="postPicture" src={post.imageUrl} alt="image du post" />}
-          <div className="postContent">{post.text}</div>
-          <div className="postDate"> <span>Créer le {post.date} à {post.time}</span> </div>
+          <div className="post" key={post._id}>
+
+            <span>{post.author}</span>
+            {post.imageUrl && <img className="postPicture" src={post.imageUrl} alt="image du post" />}
+            <div className="postContent">{post.text}</div>
+            <div className="postDate"> <span>Créer le {post.date} à {post.time}</span> </div>
   
-          <div className="postInteraction">
-            {profil.name === post.author || profil.admin ? (<button onClick={() => {setIdPost(post._id)}}> <a href="#modifPost">Modifier</a> </button>) : null }
-            <LikePost post = {post} /> 
-            {profil.name === post.author || profil.admin ? <DeletePost post = {post} /> : null }
+            <div className="postInteraction">
+              {profil.name === post.author || profil.admin ? (<button onClick={() => {setIdPost(post._id)}}> <a href="#modifPost">Modifier</a> </button>) : null }
+              <LikePost post = {post} /> 
+              {profil.name === post.author || profil.admin ? <DeletePost post = {post} /> : null }
+            </div>
+
           </div>
-        </div>
       
-      )}
+        )}
   
       </div>
     )

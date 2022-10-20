@@ -1,9 +1,11 @@
 import { useState } from 'react';
 
+////  Formulaire de connection  //
 function Connect() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  ////  Envoi de la demande de connection de compte  //
   const login = (e) => {
     e.preventDefault();
 
@@ -32,9 +34,11 @@ function Connect() {
       });
   };
 
+
+  ////  Génération du formulaire de connection  //
   return (
-    <form id="connectForm" onSubmit={(e) => {login(e)}}>
-      Connection
+    <form id="connectForm" onSubmit={login}>
+      <h2>Connection</h2>
       <div>
         <label htmlFor="email">Email</label>
         <input
@@ -57,7 +61,7 @@ function Connect() {
           value={password}
         />
       </div>
-      <input type="submit" value="Envoyer" />
+      <input id="send" type="submit" value="Envoyer" />
     </form>
   );
 }

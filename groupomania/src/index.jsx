@@ -13,10 +13,12 @@ import Accueil from './pages/Accueil';
 
 import { IdProvider } from './utils/context';
 
+////  Redirection en fonction de la validité des paramètres de connexion  //
 function Identification() {
   const profil = JSON.parse(sessionStorage.getItem('profil'))
   const posts = JSON.parse(localStorage.getItem('posts'))
 
+  ////  Redirection des utilisateurs non-connecté vers page Compte  //
   if (!profil) {
 
     sessionStorage.clear()
@@ -27,9 +29,9 @@ function Identification() {
         <Route path="*" element={<Compte />} />
       </Routes>
     );
-
   } 
 
+  ////  Redirection vers la page compte lorsque le token expire  //
   else if (posts && posts.error && posts.error.name === 'TokenExpiredError'){
     
     alert("Vôtre token vient d'expirer, veuillez vous reconnecter") 
@@ -44,6 +46,7 @@ function Identification() {
     );
   }
   
+  ////  Accès à toutes les routes si l'utilisateur est connecté et son token à jour  //
   else {
     return (
       <Routes>
@@ -55,6 +58,7 @@ function Identification() {
   }
 }
 
+////  Génération de la page du site  //
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>

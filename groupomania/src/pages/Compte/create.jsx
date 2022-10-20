@@ -1,10 +1,12 @@
 import { useState } from 'react';
 
+////  Formulaire d'inscription  //
 function Create() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const login = (e) => {
+  ////  Envoi de la demande de création de compte  //
+  const create = (e) => {
     e.preventDefault();
 
     return fetch('http://localhost:5500/api/auth/signup', {
@@ -32,9 +34,11 @@ function Create() {
     });
   };
 
+
+  ////  Génération du formulaire d'inscription  //
   return (
-    <form id="connectForm" onSubmit={login} action="">
-      Créer un compte
+    <form id="createForm" onSubmit={create}>
+      <h2>Créer un compte</h2>
       <div>
         <label htmlFor="email">Email</label>
         <input
@@ -57,7 +61,7 @@ function Create() {
           value={password}
         />
       </div>
-      <input type="submit" value="Envoyer" />
+      <input id="send" type="submit" value="Envoyer" />
     </form>
   );
 }

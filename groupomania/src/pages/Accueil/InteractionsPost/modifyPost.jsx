@@ -2,19 +2,19 @@ import { useState, useEffect, useContext } from "react";
 import { IdContext } from "../../../utils/context";
 
 
-//////////////////// Modification d'un Post //////////////////////////
+////  Modification d'un Post  //
 function ModifyPost() {
 
-  /////  Récupération du profil   //
+  /////  Récupération du profil  //
   const profil = JSON.parse(sessionStorage.getItem('profil'))
 
-  /////  Récupération de l'Id du post   //
+  /////  Récupération de l'Id du post  //
   const {idPost, setIdPost} = useContext(IdContext)
 
   /////  Gestion text  //
   const [text, setText] = useState()
 
-  ////   Gestion fichier image //
+  ////   Gestion fichier image  //
   const [file, setFile] = useState()
 
   ////   Création du FormData  //
@@ -23,7 +23,8 @@ function ModifyPost() {
     data.append("fileImage", file)
     data.append("admin", profil.admin)
 
-  /////////////////// récupération de l'api du post cible //////////
+
+  ////  Récupération de l'api du post cible  //
   useEffect(()=>{
   
     fetch(`http://localhost:5500/api/posts/${idPost}`, {
@@ -35,17 +36,16 @@ function ModifyPost() {
       },
     })
     .then((res) => res.json())
-    .then((resJson) => {
-      setText(resJson.text)
-      //setFile(resJson.imageUrl)
-    })
+
+    .then((resJson) => setText(resJson.text))
+
     .catch((error) => console.log(error))
           
   },[idPost, profil.token]);
 
 
 
-  /////////////////// envoi de la modification du post /////////////
+  ////  Envoi de la demande de modification du post  //
   const ModifyOnePost = () =>{
  
     fetch(`http://localhost:5500/api/posts/${idPost}`, {
@@ -55,16 +55,13 @@ function ModifyPost() {
     })
     .then((res) => res.json())
 
-    .then((resJson) => {
-      window.location.reload()
-    })
+    .then((resJson) => window.location.reload())
 
     .catch((error) => console.log(error))
-
   }
 
   
-  /////////////////// formulaire de modification du post ///////////
+  ////  Formulaire de modification du post  //
   return (
     <form id="modifPost">
 

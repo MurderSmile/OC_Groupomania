@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 
 
-// Récupération de l'id d'un post //
+////  Récupération de l'id d'un post  //
 export const IdContext = createContext()
 
 export const IdProvider = ({children}) => {

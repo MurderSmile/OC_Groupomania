@@ -1,13 +1,13 @@
 const multer = require('multer');
 
+//  Dictionnaire pour les différents types d'image  //
 const MIME_TYPES = {
   'image/jpg': 'jpg',
   'image/jpeg': 'jpg',
   'image/png': 'png'
 };
 
-// Gestion des fichiers images dans le répertoire 'images' //
-
+//  Gestion des fichiers images dans le répertoire 'images'  //
 const storage = multer.diskStorage({
 
   destination: (req, file, callback) => {

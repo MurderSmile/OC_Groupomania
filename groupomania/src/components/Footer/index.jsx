@@ -1,3 +1,4 @@
+////  Génération du pied de page  //
 function Footer() {
   return (
     <footer>

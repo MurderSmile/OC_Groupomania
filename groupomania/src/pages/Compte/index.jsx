@@ -3,10 +3,13 @@ import Connect from './connect';
 import Create from './create';
 import '../../utils/styles/css/index.css';
 
+////  Génération de l'interface Compte  // 
 function Compte() {
   const [connectModel, setConnectModel] = useState(true);
   const [createModel, setCreateModel] = useState(false);
 
+
+  ////  Alternance entre formulaire d'inscription et de connection  //
   const loginOrCreate = (e) => {
     if (e.target.id === 'connect') {
       setCreateModel(false);
