@@ -1,6 +1,6 @@
 # Groupomania
 
-## Réseau social d'entreprise
+## Résumé du répertoire: Réseau social d'entreprise
 
 ## Langages utilisés:
   * REACT 
