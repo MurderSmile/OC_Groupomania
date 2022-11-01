@@ -1,5 +1,7 @@
 # Groupomania
 
+## Réseau social d'entreprise
+
 ## Langages utilisés:
   * REACT 
   * SCSS
