@@ -11,7 +11,7 @@
 
 ## Prérequis
 
-Vous devrez installer Node et ‘npm’ localement sur votre machine.
+  * Vous devrez installer Node et ‘npm’ localement sur votre machine.
 
 ## Pour lancer le projet:
 
