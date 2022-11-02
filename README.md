@@ -25,6 +25,7 @@
          
          
   2- Depuis le dossier backend.
+  * Créer un dossier 'images'
   * Ouvrir le terminal.
   * Entrer la commande suivante:
   ```
