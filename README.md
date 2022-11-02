@@ -9,6 +9,10 @@
   * CSS
   * HTML
 
+## Prérequis
+
+Vous devrez installer Node et ‘npm’ localement sur votre machine.
+
 ## Pour lancer le projet:
 
   1- Depuis le dossier Groupomania(frontend).
@@ -20,7 +24,6 @@
   * Après quelques secondes, une page s'ouvrira dans vôtre navigateur.
          
          
-  
   2- Depuis le dossier backend.
   * Ouvrir le terminal.
   * Entrer la commande suivante:
