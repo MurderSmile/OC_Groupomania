@@ -2,10 +2,11 @@
 
 ## Résumé du répertoire: Réseau social d'entreprise
 __Groupomania__, un groupe spécialisé dans la grande distribution, voudrait mettre en place un réseau social d'entreprise, pour facilité la communication et amélioré le relationnel entres les employés.  
-L'objectif est de créer le Frontend et le backend du site.
+L'objectif est de créer le Frontend et le backend du site.  
 Le Frontend sera éditer en one-page avec le framework Js React.  
 Le Backend sera éditer en Javascript et communiquera avec un serveur MongoDB.  
-
+Le site sera composé d'un rendu pour la partie connexion/inscription, d'une page "Accueil" pour afficher, modifier, liker et supprimer un post.  
+Un compte Utilisateur aura la possibilité de modifier et de supprimer tout les posts.
 
 ## Langages utilisés:
   * REACT 
