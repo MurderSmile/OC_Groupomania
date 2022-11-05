@@ -1,6 +1,11 @@
 # Groupomania
 
 ## Résumé du répertoire: Réseau social d'entreprise
+__Groupomania__, un groupe spécialisé dans la grande distribution, voudrait mettre en place un réseau social d'entreprise, pour facilité la communication et amélioré le relationnel entres les employés.  
+L'objectif est de créer le Frontend et le backend du site.
+Le Frontend sera éditer en one-page avec le framework Js React.  
+Le Backend sera éditer en Javascript et communiquera avec un serveur MongoDB.  
+
 
 ## Langages utilisés:
   * REACT 
