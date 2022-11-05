@@ -7,12 +7,14 @@ __Groupomania__, un groupe spécialisé dans la grande distribution, voudrait me
 * Le Backend sera éditer en Javascript et communiquera avec un serveur MongoDB.  
 * Le site sera composé d'un rendu pour la partie connexion/inscription, d'une page "Accueil" pour afficher, modifier, liker et supprimer un post.  
 * Un compte Administrateur aura la possibilité de modifier et de supprimer tout les posts.  
-Compte Administrateur:  
+
+
+## Compte Administrateur:  
 Identifiant:  
   ```
   bigbrother@gmail.com
-  ```
-Mot de passe:
+  ```  
+  Mot de passe:
   ```
   1984
   ```
