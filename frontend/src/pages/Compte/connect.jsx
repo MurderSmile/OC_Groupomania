@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { apiBackend } from '../../utils/api';
 
 ////  Formulaire de connection  //
 function Connect() {
@@ -9,10 +10,10 @@ function Connect() {
   const login = (e) => {
     e.preventDefault();
 
-    return fetch('http://localhost:5500/api/auth/login', {
+    return fetch(`${apiBackend}/api/auth/login`, {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, password }),
@@ -21,11 +22,10 @@ function Connect() {
 
       .then((resJson) => {
         if (resJson.message !== 'Paire login/mot de passe incorrecte') {
-          sessionStorage.setItem('profil', JSON.stringify(resJson)); 
+          sessionStorage.setItem('profil', JSON.stringify(resJson));
           window.location.href = './accueil';
-        }
-        else {
-          alert(resJson.message)
+        } else {
+          alert(resJson.message);
         }
       })
 
@@ -33,7 +33,6 @@ function Connect() {
         console.log(error);
       });
   };
-
 
   ////  Génération du formulaire de connection  //
   return (

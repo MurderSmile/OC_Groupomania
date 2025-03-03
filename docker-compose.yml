@@ -1,0 +1,20 @@
+version: "3"
+services:
+  frontend:
+    build:
+      context: ./frontend
+    environment:
+      - REACT_APP_API_URL=http://localhost:5500
+    ports:
+      - "80:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "5500:5500"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules

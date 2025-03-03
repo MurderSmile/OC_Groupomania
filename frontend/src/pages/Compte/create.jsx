@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { apiBackend } from '../../utils/api';
 
 ////  Formulaire d'inscription  //
 function Create() {
@@ -9,31 +10,29 @@ function Create() {
   const create = (e) => {
     e.preventDefault();
 
-    return fetch('http://localhost:5500/api/auth/signup', {
+    return fetch(`${apiBackend}/api/auth/signup`, {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
+        Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ email, password }),
     })
-    .then((res) => res.json())
+      .then((res) => res.json())
 
-    .then((resJson) => {
-      if (resJson.message === 'Utilisateur créé !') {
-        sessionStorage.setItem('profil', JSON.stringify(resJson)); 
-        window.location.href = './accueil';
-      }
-      else {
-        alert("Erreur: Vérifier que l'utilisateur n'existe pas déja")
-      }
-    })
+      .then((resJson) => {
+        if (resJson.message === 'Utilisateur créé !') {
+          sessionStorage.setItem('profil', JSON.stringify(resJson));
+          window.location.href = './accueil';
+        } else {
+          alert("Erreur: Vérifier que l'utilisateur n'existe pas déja");
+        }
+      })
 
-    .catch((error) => {
-      console.log(error);
-    });
+      .catch((error) => {
+        console.log(error);
+      });
   };
-
 
   ////  Génération du formulaire d'inscription  //
   return (

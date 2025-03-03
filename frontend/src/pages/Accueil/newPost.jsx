@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState } from 'react';
+import { apiBackend } from '../../utils/api';
 
 ////  Création et envoi d'un post  //
 function NewPost() {
-
   /////  Récupération du profil   //
-  const profil = JSON.parse(sessionStorage.getItem('profil'))
+  const profil = JSON.parse(sessionStorage.getItem('profil'));
 
   /////  Gestion text  //
   const [text, setText] = useState();
@@ -13,53 +13,50 @@ function NewPost() {
   const [file, setFile] = useState();
 
   ////   Gestion Date  //
-  const date = new Date().toLocaleDateString()
+  const date = new Date().toLocaleDateString();
 
   ////   Gestion Heure  //
-  const time = new Date().toLocaleTimeString()
-
+  const time = new Date().toLocaleTimeString();
 
   ////   Création du FormData  //
-  const data = new FormData()
-    data.append("author", profil.name)
-    data.append("text" , text)
-    data.append("fileImage", file)
-    data.append("date", date)
-    data.append("time", time)
+  const data = new FormData();
+  data.append('author', profil.name);
+  data.append('text', text);
+  data.append('fileImage', file);
+  data.append('date', date);
+  data.append('time', time);
 
   ////  Envoi du post  //
   const CreatePost = () => {
-       
-    fetch('http://localhost:5500/api/posts/', {
+    fetch(`${apiBackend}/api/posts/`, {
       method: 'POST',
-      headers: {'Authorization': `Bearer ${profil.token}`,},
-      body: data
+      headers: { Authorization: `Bearer ${profil.token}` },
+      body: data,
     })
-    .then((res) => res.json())
+      .then((res) => res.json())
 
-    .then((resJson) => window.location.reload())
+      .then((resJson) => window.location.reload())
 
-    .catch((error) => console.log(error));
+      .catch((error) => console.log(error));
   };
 
-  
   ////  Réinitialisation du Formulaire d'envoi  //
-  const Reinitialiser = () =>{
-    setFile(undefined)
-    document.getElementById("createPostPicture").value = null
+  const Reinitialiser = () => {
+    setFile(undefined);
+    document.getElementById('createPostPicture').value = null;
 
-    setText(undefined)
-    document.getElementById("createPostContenu").value = null
-  }
-    
+    setText(undefined);
+    document.getElementById('createPostContenu').value = null;
+  };
+
   ////  Formulaire d'ajout' du post  //
   return (
     <form id="createPost">
-
       <label htmlFor="createPostPicture">Ajouter une Image</label>
       <br />
       <input
-        type="file" accept="image/*"
+        type="file"
+        accept="image/*"
         name="createPostPicture"
         id="createPostPicture"
         onChange={(e) => setFile(e.target.files[0])}
@@ -77,17 +74,35 @@ function NewPost() {
       ></textarea>
 
       <br />
-        
+
       <div id="createPostInteractions">
-        {text === '' || text === undefined
-          ? <button id="createPostInteractionsSubmitInvalid" type="button">Envoyer le post</button>
-          : <button id="createPostInteractionsSubmit" type="button" onClick={()=>{CreatePost()}}>Envoyer le post</button> 
-        }
-        <button id="createPostInteractionsNull" type="button" onClick={()=>{Reinitialiser()}}>Réinitialiser</button>
+        {text === '' || text === undefined ? (
+          <button id="createPostInteractionsSubmitInvalid" type="button">
+            Envoyer le post
+          </button>
+        ) : (
+          <button
+            id="createPostInteractionsSubmit"
+            type="button"
+            onClick={() => {
+              CreatePost();
+            }}
+          >
+            Envoyer le post
+          </button>
+        )}
+        <button
+          id="createPostInteractionsNull"
+          type="button"
+          onClick={() => {
+            Reinitialiser();
+          }}
+        >
+          Réinitialiser
+        </button>
       </div>
-        
     </form>
   );
 }
 
-export default NewPost
+export default NewPost;
